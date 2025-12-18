@@ -1,0 +1,9 @@
+# Admin 페이지 라우팅 (확장자 없는 URL 지원)
+/admin/leads    /admin/leads.html    200
+/admin/board    /admin/board.html    200
+/admin/analytics    /admin/analytics.html    200
+/admin/settings    /admin/settings.html    200
+
+# Admin 루트는 index.html로
+/admin    /admin/index.html    200
+/admin/    /admin/index.html    200
