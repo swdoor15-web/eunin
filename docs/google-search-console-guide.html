@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Search Console 등록 가이드 - 은인자금파트너스</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .step-card { transition: all 0.3s ease; }
+        .step-card:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .copy-btn:active { transform: scale(0.95); }
+        .checkbox-item input:checked + label { color: #10B981; text-decoration: line-through; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- 헤더 -->
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Google Search Console
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">검색 콘솔 등록 가이드</h1>
+            <p class="text-gray-600">은인자금파트너스 (euninbiz.co.kr) SEO 설정</p>
+        </div>
+
+        <!-- 진행 체크리스트 -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">진행 체크리스트</h2>
+            <div class="space-y-3">
+                <div class="checkbox-item flex items-center gap-3">
+                    <input type="checkbox" id="check1" class="w-5 h-5 rounded text-green-500">
+                    <label for="check1" class="text-gray-700 cursor-pointer">Search Console 속성 추가</label>
+                </div>
+                <div class="checkbox-item flex items-center gap-3">
+                    <input type="checkbox" id="check2" class="w-5 h-5 rounded text-green-500">
+                    <label for="check2" class="text-gray-700 cursor-pointer">소유권 확인 완료</label>
+                </div>
+                <div class="checkbox-item flex items-center gap-3">
+                    <input type="checkbox" id="check3" class="w-5 h-5 rounded text-green-500">
+                    <label for="check3" class="text-gray-700 cursor-pointer">사이트맵 제출</label>
+                </div>
+                <div class="checkbox-item flex items-center gap-3">
+                    <input type="checkbox" id="check4" class="w-5 h-5 rounded text-green-500">
+                    <label for="check4" class="text-gray-700 cursor-pointer">색인 생성 요청</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="step-card bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                <h2 class="text-xl font-semibold text-gray-900">Search Console 접속 및 속성 추가</h2>
+            </div>
+            <div class="pl-13 space-y-4">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <p class="text-sm text-gray-600 mb-2">Search Console 바로가기:</p>
+                    <a href="https://search.google.com/search-console" target="_blank" class="inline-flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        Google Search Console 열기
+                    </a>
+                </div>
+                <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                    <li>좌측 상단 <strong>속성 선택</strong> 드롭다운 클릭</li>
+                    <li><strong>+ 속성 추가</strong> 클릭</li>
+                    <li><strong>URL 접두어</strong> 방식 선택</li>
+                    <li>아래 URL 입력 후 <strong>계속</strong> 클릭</li>
+                </ol>
+                <div class="bg-gray-900 rounded-lg p-4 flex items-center justify-between">
+                    <code class="text-green-400 text-sm" id="siteUrl">https://euninbiz.co.kr</code>
+                    <button onclick="copyText('siteUrl')" class="copy-btn bg-gray-700 text-white px-3 py-1 rounded text-sm hover:bg-gray-600">복사</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
+                <h2 class="text-xl font-semibold text-gray-900">소유권 확인</h2>
+            </div>
+            <div class="pl-13 space-y-4">
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                    <p class="text-yellow-800"><strong>참고:</strong> HTML 메타 태그가 이미 사이트에 적용되어 있습니다.</p>
+                </div>
+                <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                    <li><strong>HTML 태그</strong> 방식 선택</li>
+                    <li>메타 태그 확인 (이미 적용됨)</li>
+                    <li><strong>확인</strong> 버튼 클릭</li>
+                </ol>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <p class="text-sm text-gray-600 mb-2">현재 적용된 인증 코드:</p>
+                    <div class="bg-gray-900 rounded-lg p-4 flex items-center justify-between">
+                        <code class="text-green-400 text-xs break-all" id="verifyCode">oTFWvzDYhGW_CdsEylpP3AJMWRj3hYKZD8vA_d6YBMo</code>
+                        <button onclick="copyText('verifyCode')" class="copy-btn bg-gray-700 text-white px-3 py-1 rounded text-sm hover:bg-gray-600 ml-2 flex-shrink-0">복사</button>
+                    </div>
+                </div>
+                <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded">
+                    <p class="text-red-800"><strong>주의:</strong> DNS가 완전히 연결되어야 소유권 확인이 가능합니다. SSL 인증서 발급 완료 후 진행하세요.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                <h2 class="text-xl font-semibold text-gray-900">사이트맵 제출</h2>
+            </div>
+            <div class="pl-13 space-y-4">
+                <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                    <li>좌측 메뉴에서 <strong>Sitemaps</strong> 클릭</li>
+                    <li>새 사이트맵 추가 입력창에 아래 입력</li>
+                    <li><strong>제출</strong> 버튼 클릭</li>
+                </ol>
+                <div class="bg-gray-900 rounded-lg p-4 flex items-center justify-between">
+                    <code class="text-green-400 text-sm" id="sitemapUrl">sitemap.xml</code>
+                    <button onclick="copyText('sitemapUrl')" class="copy-btn bg-gray-700 text-white px-3 py-1 rounded text-sm hover:bg-gray-600">복사</button>
+                </div>
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                    <p class="text-blue-800"><strong>참고:</strong> sitemap.xml은 SEO 최적화 작업 시 생성 예정입니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">4</div>
+                <h2 class="text-xl font-semibold text-gray-900">색인 생성 요청</h2>
+            </div>
+            <div class="pl-13 space-y-4">
+                <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                    <li>상단 검색창에 <strong>URL 검사</strong> 클릭 또는 URL 직접 입력</li>
+                    <li>메인 페이지 URL 입력</li>
+                    <li><strong>색인 생성 요청</strong> 버튼 클릭</li>
+                    <li>주요 페이지들도 동일하게 요청</li>
+                </ol>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <p class="text-sm text-gray-600 mb-3">색인 요청할 주요 페이지:</p>
+                    <div class="space-y-2">
+                        <div class="bg-gray-900 rounded-lg p-3 flex items-center justify-between">
+                            <code class="text-green-400 text-sm" id="url1">https://euninbiz.co.kr</code>
+                            <button onclick="copyText('url1')" class="copy-btn bg-gray-700 text-white px-2 py-1 rounded text-xs hover:bg-gray-600">복사</button>
+                        </div>
+                        <div class="bg-gray-900 rounded-lg p-3 flex items-center justify-between">
+                            <code class="text-green-400 text-sm" id="url2">https://euninbiz.co.kr/about.html</code>
+                            <button onclick="copyText('url2')" class="copy-btn bg-gray-700 text-white px-2 py-1 rounded text-xs hover:bg-gray-600">복사</button>
+                        </div>
+                        <div class="bg-gray-900 rounded-lg p-3 flex items-center justify-between">
+                            <code class="text-green-400 text-sm" id="url3">https://euninbiz.co.kr/fund.html</code>
+                            <button onclick="copyText('url3')" class="copy-btn bg-gray-700 text-white px-2 py-1 rounded text-xs hover:bg-gray-600">복사</button>
+                        </div>
+                        <div class="bg-gray-900 rounded-lg p-3 flex items-center justify-between">
+                            <code class="text-green-400 text-sm" id="url4">https://euninbiz.co.kr/process.html</code>
+                            <button onclick="copyText('url4')" class="copy-btn bg-gray-700 text-white px-2 py-1 rounded text-xs hover:bg-gray-600">복사</button>
+                        </div>
+                        <div class="bg-gray-900 rounded-lg p-3 flex items-center justify-between">
+                            <code class="text-green-400 text-sm" id="url5">https://euninbiz.co.kr/service.html</code>
+                            <button onclick="copyText('url5')" class="copy-btn bg-gray-700 text-white px-2 py-1 rounded text-xs hover:bg-gray-600">복사</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 완료 -->
+        <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 text-white text-center">
+            <svg class="w-12 h-12 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <h2 class="text-xl font-bold mb-2">등록 완료!</h2>
+            <p class="opacity-90">색인 생성까지 보통 1-3일 소요됩니다.<br>Search Console에서 실적 데이터를 확인하세요.</p>
+        </div>
+
+        <!-- 푸터 -->
+        <div class="text-center mt-8 text-gray-500 text-sm">
+            <p>은인자금파트너스 SEO 설정 가이드 | 2024</p>
+        </div>
+    </div>
+
+    <script>
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '복사됨!';
+                btn.classList.add('bg-green-600');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('bg-green-600');
+                }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>
