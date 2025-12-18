@@ -6,10 +6,15 @@
   "public": true,
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
+  "headers": [
     {
       "source": "/sitemap.xml",
-      "destination": "https://bizen-homepage.weandbiz.workers.dev/sitemap.xml"
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        }
+      ]
     }
   ]
 }
