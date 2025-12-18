@@ -1,0 +1,241 @@
+// ================================================
+// 은인자금파트너스 - Meta Lead 알림 Worker
+// URL: https://euninbiz.swdoor15.workers.dev/
+// 작성일: 2025-12-18
+// 용도: Airtable Automation에서 호출 (이메일 + 텔레그램)
+// 흐름: Meta Lead → Make → Airtable → Worker(알림)
+// ================================================
+
+// ================================================
+// 실제 토큰은 .env 또는 Cloudflare 대시보드에서 설정
+// ================================================
+const CONFIG = {
+  BRAND: {
+    NAME: '은인자금파트너스',
+    CEO: '조은예',
+    PHONE: '010-6660-5118',
+    EMAIL: 'swdoor166@naver.com'
+  },
+  EMAIL: {
+    FROM: '은인자금파트너스 <noreply@mail.policy-fund.online>',
+    TO: 'swdoor166@naver.com',
+    BCC: 'mkt@polarad.co.kr'
+  },
+  RESEND: {
+    API_KEY: 'YOUR_RESEND_API_KEY'  // .env에서 설정
+  },
+  TELEGRAM: {
+    BOT_TOKEN: 'YOUR_TELEGRAM_BOT_TOKEN',  // .env에서 설정
+    CHAT_ID: '-1003635343656'
+  },
+  AIRTABLE_URL: 'TO_BE_SET'
+};
+
+export default {
+  async fetch(request) {
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { headers: corsHeaders });
+    }
+
+    if (request.method !== 'POST') {
+      return new Response('Method Not Allowed', { status: 405, headers: corsHeaders });
+    }
+
+    try {
+      const data = await request.json();
+      const results = {
+        success: true,
+        email: { success: false, error: null },
+        telegram: { success: false, error: null }
+      };
+
+      try {
+        const emailResult = await sendStaffEmail(data);
+        results.email = emailResult;
+      } catch (error) {
+        results.email = { success: false, error: error.message };
+      }
+
+      try {
+        const telegramResult = await sendTelegramNotification(data);
+        results.telegram = telegramResult;
+      } catch (error) {
+        results.telegram = { success: false, error: error.message };
+      }
+
+      return new Response(JSON.stringify(results), {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+
+    } catch (error) {
+      return new Response(JSON.stringify({
+        success: false,
+        error: error.message
+      }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+  }
+};
+
+async function sendStaffEmail(data) {
+  const platform = data.플랫폼 || data.platform || 'Meta';
+  const adName = data.광고명 || data.adName || '-';
+  const location = data.지역 || data.location || '-';
+  const name = data.이름 || data.name || '-';
+  const phone = formatPhone(data.연락처 || data.phone || '-');
+  const company = data.상호명 || data.company || '-';
+  const industry = data.업종 || data.industry || '-';
+  const revenue = data.직전년도매출 || data.revenue || '-';
+  const amount = data.필요자금 || data.amount || '-';
+  const consultTime = data.상담희망시간 || data.consultTime || '-';
+
+  const platformEmoji = platform.includes('인스타') ? '📷' : '👍';
+  const currentTime = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+
+  const subject = `[은인자금파트너스] ${platformEmoji} Meta 신규 리드 - ${company} (${name})`;
+
+  const html = `<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body style="font-family: 'Pretendard', sans-serif; margin: 0; padding: 0; background: #f5f5f5;">
+  <div style="max-width: 600px; margin: 0 auto; background: white;">
+    <div style="background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%); padding: 30px 20px; text-align: center;">
+      <h1 style="margin: 0; color: #ffffff; font-size: 22px; font-weight: 700;">💰 은인자금파트너스 신규 리드</h1>
+      <p style="margin: 8px 0 0 0; color: #74C69D; font-size: 14px;">${platformEmoji} ${platform} 광고 접수${adName !== '-' ? ' - ' + adName : ''}</p>
+    </div>
+    <div style="padding: 20px;">
+      <div style="background: #D8F3DC; border-left: 4px solid #52B788; padding: 20px; margin-bottom: 16px; border-radius: 4px;">
+        <h3 style="margin: 0 0 16px 0; color: #1B4332; font-size: 16px; font-weight: 700;">📋 기본정보</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr><td style="padding: 6px 0; color: #666; width: 100px;">🏢 상호명</td><td style="color: #333; font-weight: 600;">${company}</td></tr>
+          <tr><td style="padding: 6px 0; color: #666;">🏭 업종</td><td style="color: #333;">${industry}</td></tr>
+          <tr><td style="padding: 6px 0; color: #666;">📍 지역</td><td style="color: #333;">${location}</td></tr>
+        </table>
+      </div>
+      <div style="background: #D8F3DC; border-left: 4px solid #52B788; padding: 20px; margin-bottom: 16px; border-radius: 4px;">
+        <h3 style="margin: 0 0 16px 0; color: #1B4332; font-size: 16px; font-weight: 700;">👤 담당자 정보</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr><td style="padding: 6px 0; color: #666; width: 100px;">👤 이름</td><td style="color: #333; font-weight: 600;">${name}</td></tr>
+          <tr><td style="padding: 6px 0; color: #666;">📞 연락처</td><td style="color: #2D6A4F; font-weight: 600;">${phone}</td></tr>
+          <tr><td style="padding: 6px 0; color: #666;">🕐 상담희망</td><td style="color: #333;">${consultTime}</td></tr>
+        </table>
+      </div>
+      <div style="background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%); padding: 20px; margin-bottom: 16px; border-radius: 4px;">
+        <h3 style="margin: 0 0 16px 0; color: #ffffff; font-size: 16px; font-weight: 700;">💰 자금 정보</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr><td style="padding: 6px 0; color: #74C69D; width: 100px;">💵 직전매출</td><td style="color: #ffffff;">${revenue}</td></tr>
+          <tr><td style="padding: 6px 0; color: #74C69D;">💰 필요자금</td><td style="color: #FFD700; font-weight: 700; font-size: 16px;">${amount}</td></tr>
+        </table>
+      </div>
+      <div style="text-align: center; margin: 24px 0;">
+        <a href="${CONFIG.AIRTABLE_URL}" style="display: inline-block; background: linear-gradient(135deg, #52B788, #74C69D); color: white; padding: 14px 32px; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 14px;">📊 Airtable에서 확인하기</a>
+      </div>
+      <p style="color: #999; font-size: 12px; text-align: center; margin: 16px 0;">⏰ 접수시간: ${currentTime}</p>
+    </div>
+    <div style="background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%); padding: 20px; text-align: center;">
+      <p style="margin: 0; color: #ffffff; font-weight: 700; font-size: 16px;">은인자금파트너스</p>
+      <p style="margin: 5px 0 0 0; color: #74C69D; font-size: 13px;">📞 ${CONFIG.BRAND.PHONE}</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + CONFIG.RESEND.API_KEY,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      from: CONFIG.EMAIL.FROM,
+      to: CONFIG.EMAIL.TO,
+      bcc: CONFIG.EMAIL.BCC,
+      subject: subject,
+      html: html
+    })
+  });
+
+  const result = await response.json();
+  if (response.ok) {
+    return { success: true, resendId: result.id };
+  } else {
+    return { success: false, error: result.message || 'Resend error' };
+  }
+}
+
+async function sendTelegramNotification(data) {
+  const platform = data.플랫폼 || data.platform || 'Meta';
+  const adName = data.광고명 || data.adName || '-';
+  const location = data.지역 || data.location || '-';
+  const name = data.이름 || data.name || '-';
+  const phone = formatPhone(data.연락처 || data.phone || '-');
+  const company = data.상호명 || data.company || '-';
+  const industry = data.업종 || data.industry || '-';
+  const revenue = data.직전년도매출 || data.revenue || '-';
+  const amount = data.필요자금 || data.amount || '-';
+  const consultTime = data.상담희망시간 || data.consultTime || '-';
+
+  const platformEmoji = platform.includes('인스타') ? '📷' : '👍';
+  const currentTime = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+
+  const message = '💰 <b>은인자금파트너스 - Meta 신규리드</b>\n' +
+    platformEmoji + ' <b>' + platform + '</b>' + (adName !== '-' ? ' | ' + adName : '') + '\n\n' +
+    '<b>📋 기본정보</b>\n' +
+    '├ 🏢 상호명: <b>' + company + '</b>\n' +
+    '├ 🏭 업종: ' + industry + '\n' +
+    '└ 📍 지역: ' + location + '\n\n' +
+    '<b>👤 담당자</b>\n' +
+    '├ 이름: ' + name + '\n' +
+    '├ 📞 <code>' + phone + '</code>\n' +
+    '└ ⏰ 상담희망: ' + consultTime + '\n\n' +
+    '<b>💰 자금정보</b>\n' +
+    '├ 💵 매출: ' + revenue + '\n' +
+    '└ 💰 필요자금: <b>' + amount + '</b>\n\n' +
+    '📊 Airtable에서 확인\n\n' +
+    '⏰ ' + currentTime + '\n' +
+    '📞 ' + CONFIG.BRAND.PHONE;
+
+  const response = await fetch('https://api.telegram.org/bot' + CONFIG.TELEGRAM.BOT_TOKEN + '/sendMessage', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: CONFIG.TELEGRAM.CHAT_ID,
+      text: message,
+      parse_mode: 'HTML',
+      disable_web_page_preview: true
+    })
+  });
+
+  const result = await response.json();
+  if (response.ok && result.ok) {
+    return { success: true, messageId: result.result.message_id };
+  } else {
+    return { success: false, error: result.description || 'Telegram error' };
+  }
+}
+
+function formatPhone(value) {
+  if (!value || value === '-') return '-';
+  let digits = String(value).replace(/[^0-9]/g, '');
+  if (digits.startsWith('82')) {
+    digits = '0' + digits.substring(2);
+  }
+  if (!digits.startsWith('0')) {
+    digits = '0' + digits;
+  }
+  if (digits.length === 11 && digits.startsWith('010')) {
+    return digits.slice(0, 3) + '-' + digits.slice(3, 7) + '-' + digits.slice(7);
+  } else if (digits.length === 10) {
+    return digits.slice(0, 3) + '-' + digits.slice(3, 6) + '-' + digits.slice(6);
+  }
+  return value;
+}

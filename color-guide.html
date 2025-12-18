@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>컬러 가이드 - 은인 자금 파트너스 Brand Color System (그린톤)</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <style>
+        /* ============================================
+           은인 자금 파트너스 Brand Color System
+           자연/신뢰 스타일 그린톤
+           Primary: #2D6A4F (포레스트 그린)
+           Accent: #52B788 (프레시 그린)
+           ============================================ */
+
+        :root {
+            /* Primary Colors - 포레스트 그린 (메인 브랜드) */
+            --primary: #2D6A4F;
+            --primary-light: #40916C;
+            --primary-dark: #1B4332;
+            --primary-pale: #D8F3DC;
+
+            /* Accent Colors - 프레시 그린 (CTA, 강조) */
+            --accent: #52B788;
+            --accent-light: #74C69D;
+            --accent-dark: #40916C;
+            --accent-pale: #E8F5E9;
+
+            /* Secondary - 틸 그린 (보조) */
+            --secondary: #4A9E8C;
+            --secondary-light: #6BB5A5;
+            --secondary-dark: #3D8272;
+
+            /* Status Colors */
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #52B788;
+
+            /* Neutral Colors - 그레이 스케일 */
+            --white: #ffffff;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #2D6A4F 0%, #40916C 100%);
+            --gradient-accent: linear-gradient(135deg, #52B788 0%, #74C69D 100%);
+            --gradient-hero: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
+            --gradient-fresh: linear-gradient(135deg, #40916C 0%, #52B788 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 50px 40px;
+            background: var(--gradient-hero);
+            border-radius: 16px;
+            color: var(--white);
+            box-shadow: 0 8px 32px rgba(45, 106, 79, 0.25);
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .brand-name svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .main-color-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .main-color-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Consolas', 'Monaco', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.05em;
+        }
+
+        .main-color-badge:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .main-color-badge.accent {
+            background: var(--accent);
+            border-color: var(--accent-light);
+        }
+
+        /* Section */
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(45, 106, 79, 0.06);
+            border: 1px solid var(--gray-200);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-desc {
+            color: var(--gray-500);
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            padding-left: 14px;
+        }
+
+        /* Color Grid */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .color-card {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .color-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(45, 106, 79, 0.15);
+            border-color: var(--primary);
+        }
+
+        .color-card:active {
+            transform: scale(0.98);
+        }
+
+        .color-preview {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .color-preview.dark-text {
+            color: var(--gray-800);
+        }
+
+        .copy-hint {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            font-size: 0.65rem;
+            background: rgba(0,0,0,0.25);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .color-card:hover .copy-hint {
+            opacity: 1;
+        }
+
+        .color-info {
+            padding: 14px 16px;
+        }
+
+        .color-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--gray-800);
+            font-size: 0.9rem;
+        }
+
+        .color-value {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: var(--gray-100);
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .color-tag {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .color-tag.accent {
+            background: var(--accent);
+        }
+
+        .color-tag.secondary {
+            background: var(--secondary);
+        }
+
+        /* Gradient Cards */
+        .gradient-preview {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 8px 24px rgba(45, 106, 79, 0.35);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--gray-400);
+            font-size: 0.8rem;
+        }
+
+        /* Quick Copy Bar */
+        .quick-copy {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .quick-chip {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            border: 2px solid transparent;
+        }
+
+        .quick-chip:hover {
+            transform: scale(1.03);
+        }
+
+        .quick-chip:active {
+            transform: scale(0.97);
+        }
+
+        /* Usage Examples */
+        .usage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .usage-card {
+            background: var(--primary-pale);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .usage-card.accent {
+            background: var(--accent-pale);
+            border-left-color: var(--accent);
+        }
+
+        .usage-card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .usage-card.accent h4 {
+            color: var(--accent-dark);
+        }
+
+        .usage-card p {
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Button Example */
+        .btn-example {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn-example button {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background: var(--accent-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary) !important;
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-gradient {
+            background: var(--gradient-fresh);
+            color: white;
+        }
+
+        .btn-gradient:hover {
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+
+            .brand-name {
+                font-size: 1.2rem;
+            }
+
+            .color-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-copy {
+                gap: 8px;
+            }
+
+            .quick-chip {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+
+            .main-color-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="brand-name">
+                <!-- 은인 로고 SVG -->
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 90C50 90 85 65 85 40C85 20 70 10 50 25C30 10 15 20 15 40C15 65 50 90 50 90Z" stroke="white" stroke-width="4" fill="none"/>
+                    <circle cx="35" cy="30" r="8" fill="white"/>
+                    <circle cx="65" cy="30" r="8" fill="white"/>
+                    <path d="M35 30L50 50L65 30" stroke="white" stroke-width="3" fill="none"/>
+                </svg>
+                은인 자금 파트너스
+            </div>
+            <h1>Brand Color Guide</h1>
+            <p>자연/신뢰 스타일 그린톤 - 클릭하면 색상값이 복사됩니다</p>
+            <div class="main-color-badges">
+                <div class="main-color-badge" onclick="copyColor('#2D6A4F')">Primary #2D6A4F</div>
+                <div class="main-color-badge accent" onclick="copyColor('#52B788')">Accent #52B788</div>
+            </div>
+        </header>
+
+        <!-- Quick Copy -->
+        <div class="quick-copy">
+            <div class="quick-chip" style="background: #1B4332; color: white;" onclick="copyColor('#1B4332')">Dark #1B4332</div>
+            <div class="quick-chip" style="background: #2D6A4F; color: white;" onclick="copyColor('#2D6A4F')">Primary #2D6A4F</div>
+            <div class="quick-chip" style="background: #40916C; color: white;" onclick="copyColor('#40916C')">Light #40916C</div>
+            <div class="quick-chip" style="background: #52B788; color: white;" onclick="copyColor('#52B788')">Accent #52B788</div>
+            <div class="quick-chip" style="background: #74C69D; color: white;" onclick="copyColor('#74C69D')">Fresh #74C69D</div>
+            <div class="quick-chip" style="background: #D8F3DC; color: #2D6A4F; border-color: #2D6A4F;" onclick="copyColor('#D8F3DC')">Pale #D8F3DC</div>
+        </div>
+
+        <!-- Primary Colors -->
+        <section class="section">
+            <h2 class="section-title">Primary Colors</h2>
+            <p class="section-desc">메인 브랜드 컬러 - 포레스트 그린 계열 (자연, 성장, 신뢰, 안정감)</p>
+
+            <div class="color-grid">
+                <div class="color-card" onclick="copyColor('#2D6A4F')">
+                    <div class="color-preview" style="background: #2D6A4F;">
+                        Primary
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <span class="color-tag">Main</span>
+                        <div class="color-name">프라이머리 (포레스트 그린)</div>
+                        <div class="color-value">#2D6A4F</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#40916C')">
+                    <div class="color-preview" style="background: #40916C;">
+                        Light
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">프라이머리 라이트</div>
+                        <div class="color-value">#40916C</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#1B4332')">
+                    <div class="color-preview" style="background: #1B4332;">
+                        Dark
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">프라이머리 다크</div>
+                        <div class="color-value">#1B4332</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#D8F3DC')">
+                    <div class="color-preview dark-text" style="background: #D8F3DC;">
+                        Pale
+                        <span class="copy-hint" style="background: rgba(0,0,0,0.1); color: #333;">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">프라이머리 페일</div>
+                        <div class="color-value">#D8F3DC</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accent Colors -->
+        <section class="section">
+            <h2 class="section-title">Accent Colors</h2>
+            <p class="section-desc">강조/포인트 컬러 - 프레시 그린 계열 (CTA, 강조, 인터랙션)</p>
+
+            <div class="color-grid">
+                <div class="color-card" onclick="copyColor('#52B788')">
+                    <div class="color-preview" style="background: #52B788;">
+                        Accent
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <span class="color-tag accent">Point</span>
+                        <div class="color-name">액센트 (프레시 그린)</div>
+                        <div class="color-value">#52B788</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#74C69D')">
+                    <div class="color-preview" style="background: #74C69D;">
+                        Light
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">액센트 라이트</div>
+                        <div class="color-value">#74C69D</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#40916C')">
+                    <div class="color-preview" style="background: #40916C;">
+                        Dark
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">액센트 다크</div>
+                        <div class="color-value">#40916C</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#E8F5E9')">
+                    <div class="color-preview dark-text" style="background: #E8F5E9;">
+                        Pale
+                        <span class="copy-hint" style="background: rgba(0,0,0,0.1); color: #333;">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">액센트 페일</div>
+                        <div class="color-value">#E8F5E9</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Secondary Colors -->
+        <section class="section">
+            <h2 class="section-title">Secondary Colors</h2>
+            <p class="section-desc">보조 컬러 - 틸 그린 계열 (세컨더리 강조, 배지, 태그)</p>
+
+            <div class="color-grid">
+                <div class="color-card" onclick="copyColor('#4A9E8C')">
+                    <div class="color-preview" style="background: #4A9E8C;">
+                        Secondary
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <span class="color-tag secondary">Sub</span>
+                        <div class="color-name">세컨더리 (틸 그린)</div>
+                        <div class="color-value">#4A9E8C</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#6BB5A5')">
+                    <div class="color-preview" style="background: #6BB5A5;">
+                        Light
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">세컨더리 라이트</div>
+                        <div class="color-value">#6BB5A5</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#3D8272')">
+                    <div class="color-preview" style="background: #3D8272;">
+                        Dark
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">세컨더리 다크</div>
+                        <div class="color-value">#3D8272</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Colors -->
+        <section class="section">
+            <h2 class="section-title">Status Colors</h2>
+            <p class="section-desc">상태 표시 컬러 - 성공, 경고, 오류, 정보</p>
+
+            <div class="color-grid">
+                <div class="color-card" onclick="copyColor('#10B981')">
+                    <div class="color-preview" style="background: #10B981;">
+                        Success
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">성공 (그린)</div>
+                        <div class="color-value">#10B981</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#F59E0B')">
+                    <div class="color-preview" style="background: #F59E0B;">
+                        Warning
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">경고 (앰버)</div>
+                        <div class="color-value">#F59E0B</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#EF4444')">
+                    <div class="color-preview" style="background: #EF4444;">
+                        Error
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">오류 (레드)</div>
+                        <div class="color-value">#EF4444</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#52B788')">
+                    <div class="color-preview" style="background: #52B788;">
+                        Info
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">정보 (그린)</div>
+                        <div class="color-value">#52B788</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Neutral Colors -->
+        <section class="section">
+            <h2 class="section-title">Neutral Colors</h2>
+            <p class="section-desc">중립 컬러 - 그레이 스케일 (텍스트, 배경, 보더)</p>
+
+            <div class="color-grid">
+                <div class="color-card" onclick="copyColor('#ffffff')">
+                    <div class="color-preview dark-text" style="background: #ffffff; border: 1px solid #E5E7EB;">
+                        White
+                        <span class="copy-hint" style="background: rgba(0,0,0,0.1); color: #333;">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">화이트</div>
+                        <div class="color-value">#ffffff</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#F9FAFB')">
+                    <div class="color-preview dark-text" style="background: #F9FAFB;">
+                        Gray 50
+                        <span class="copy-hint" style="background: rgba(0,0,0,0.1); color: #333;">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">그레이 50 (배경)</div>
+                        <div class="color-value">#F9FAFB</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#E5E7EB')">
+                    <div class="color-preview dark-text" style="background: #E5E7EB;">
+                        Gray 200
+                        <span class="copy-hint" style="background: rgba(0,0,0,0.1); color: #333;">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">그레이 200 (보더)</div>
+                        <div class="color-value">#E5E7EB</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#6B7280')">
+                    <div class="color-preview" style="background: #6B7280;">
+                        Gray 500
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">그레이 500 (서브텍스트)</div>
+                        <div class="color-value">#6B7280</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#374151')">
+                    <div class="color-preview" style="background: #374151;">
+                        Gray 700
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">그레이 700 (본문)</div>
+                        <div class="color-value">#374151</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('#111827')">
+                    <div class="color-preview" style="background: #111827;">
+                        Gray 900
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">그레이 900 (푸터 배경)</div>
+                        <div class="color-value">#111827</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gradients -->
+        <section class="section">
+            <h2 class="section-title">Gradients</h2>
+            <p class="section-desc">그라데이션 - 히어로 섹션, CTA 영역에 사용</p>
+
+            <div class="color-grid">
+                <div class="color-card" onclick="copyColor('linear-gradient(135deg, #2D6A4F 0%, #40916C 100%)')">
+                    <div class="gradient-preview" style="background: linear-gradient(135deg, #2D6A4F 0%, #40916C 100%);">
+                        Primary Gradient
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">프라이머리 그라데이션</div>
+                        <div class="color-value" style="font-size: 0.7rem;">#2D6A4F → #40916C</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%)')">
+                    <div class="gradient-preview" style="background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);">
+                        Hero Gradient
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">히어로 그라데이션</div>
+                        <div class="color-value" style="font-size: 0.7rem;">#1B4332 → #2D6A4F</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('linear-gradient(135deg, #52B788 0%, #74C69D 100%)')">
+                    <div class="gradient-preview" style="background: linear-gradient(135deg, #52B788 0%, #74C69D 100%);">
+                        Accent Gradient
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">액센트 그라데이션</div>
+                        <div class="color-value" style="font-size: 0.7rem;">#52B788 → #74C69D</div>
+                    </div>
+                </div>
+
+                <div class="color-card" onclick="copyColor('linear-gradient(135deg, #40916C 0%, #52B788 100%)')">
+                    <div class="gradient-preview" style="background: linear-gradient(135deg, #40916C 0%, #52B788 100%);">
+                        Fresh Gradient
+                        <span class="copy-hint">클릭하여 복사</span>
+                    </div>
+                    <div class="color-info">
+                        <div class="color-name">프레시 그라데이션</div>
+                        <div class="color-value" style="font-size: 0.7rem;">#40916C → #52B788</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Button Examples -->
+        <section class="section">
+            <h2 class="section-title">Button Examples</h2>
+            <p class="section-desc">버튼 스타일 예시</p>
+
+            <div class="btn-example">
+                <button class="btn-primary">Primary Button</button>
+                <button class="btn-accent">CTA Button (Accent)</button>
+                <button class="btn-outline">Outline Button</button>
+                <button class="btn-gradient">Gradient Button</button>
+            </div>
+        </section>
+
+        <!-- Usage Guide -->
+        <section class="section">
+            <h2 class="section-title">Usage Guide</h2>
+            <p class="section-desc">컬러 사용 가이드</p>
+
+            <div class="usage-grid">
+                <div class="usage-card">
+                    <h4>헤더 / 네비게이션</h4>
+                    <p>배경: Primary (#2D6A4F) 또는 Hero Gradient, 텍스트: White</p>
+                </div>
+                <div class="usage-card accent">
+                    <h4>CTA 버튼 / 강조</h4>
+                    <p>배경: Accent (#52B788), hover 시 Accent Dark (#40916C)</p>
+                </div>
+                <div class="usage-card">
+                    <h4>히어로 섹션</h4>
+                    <p>배경: Hero Gradient (#1B4332 → #2D6A4F), CTA: Accent</p>
+                </div>
+                <div class="usage-card">
+                    <h4>푸터</h4>
+                    <p>배경: Gray 900 (#111827) 또는 Primary Dark (#1B4332)</p>
+                </div>
+                <div class="usage-card">
+                    <h4>카드 / 섹션</h4>
+                    <p>배경: White 또는 Primary Pale (#D8F3DC), 보더: Gray 200</p>
+                </div>
+                <div class="usage-card accent">
+                    <h4>링크 / 인터랙티브</h4>
+                    <p>Primary (#2D6A4F), hover 시 Accent (#52B788)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CSS Variables -->
+        <section class="section">
+            <h2 class="section-title">CSS Variables</h2>
+            <p class="section-desc">복사하여 사용할 수 있는 CSS 변수</p>
+
+            <div style="background: var(--gray-800); border-radius: 10px; padding: 24px; overflow-x: auto;">
+                <pre style="color: #e2e8f0; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.85rem; line-height: 1.8; margin: 0;"><code>:root {
+  /* Primary Colors - 포레스트 그린 (자연/신뢰 스타일) */
+  --primary: #2D6A4F;
+  --primary-light: #40916C;
+  --primary-dark: #1B4332;
+  --primary-pale: #D8F3DC;
+
+  /* Accent Colors - 프레시 그린 (CTA, 강조) */
+  --accent: #52B788;
+  --accent-light: #74C69D;
+  --accent-dark: #40916C;
+  --accent-pale: #E8F5E9;
+
+  /* Secondary Colors - 틸 그린 (보조) */
+  --secondary: #4A9E8C;
+  --secondary-light: #6BB5A5;
+  --secondary-dark: #3D8272;
+
+  /* Status Colors */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #52B788;
+
+  /* Neutral Colors */
+  --neutral-50: #F9FAFB;
+  --neutral-100: #F3F4F6;
+  --neutral-200: #E5E7EB;
+  --neutral-300: #D1D5DB;
+  --neutral-400: #9CA3AF;
+  --neutral-500: #6B7280;
+  --neutral-600: #4B5563;
+  --neutral-700: #374151;
+  --neutral-800: #1F2937;
+  --neutral-900: #111827;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #2D6A4F 0%, #40916C 100%);
+  --gradient-hero: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
+  --gradient-accent: linear-gradient(135deg, #52B788 0%, #74C69D 100%);
+  --gradient-fresh: linear-gradient(135deg, #40916C 0%, #52B788 100%);
+}</code></pre>
+            </div>
+            <button onclick="copyCSS()" style="margin-top: 16px; background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s;">CSS 변수 전체 복사</button>
+        </section>
+
+        <footer class="footer">
+            <p>은인 자금 파트너스 Brand Color Guide | 자연/신뢰 스타일 그린톤</p>
+            <p style="margin-top: 8px; color: var(--gray-400);">Primary: #2D6A4F (포레스트 그린) | Accent: #52B788 (프레시 그린)</p>
+        </footer>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        function copyColor(colorValue) {
+            navigator.clipboard.writeText(colorValue).then(() => {
+                showToast('✓ ' + colorValue + ' 복사됨');
+            }).catch(() => {
+                fallbackCopy(colorValue);
+                showToast('✓ ' + colorValue + ' 복사됨');
+            });
+        }
+
+        function copyCSS() {
+            const cssVars = `:root {
+  /* Primary Colors - 포레스트 그린 (자연/신뢰 스타일) */
+  --primary: #2D6A4F;
+  --primary-light: #40916C;
+  --primary-dark: #1B4332;
+  --primary-pale: #D8F3DC;
+
+  /* Accent Colors - 프레시 그린 (CTA, 강조) */
+  --accent: #52B788;
+  --accent-light: #74C69D;
+  --accent-dark: #40916C;
+  --accent-pale: #E8F5E9;
+
+  /* Secondary Colors - 틸 그린 (보조) */
+  --secondary: #4A9E8C;
+  --secondary-light: #6BB5A5;
+  --secondary-dark: #3D8272;
+
+  /* Status Colors */
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #52B788;
+
+  /* Neutral Colors */
+  --neutral-50: #F9FAFB;
+  --neutral-100: #F3F4F6;
+  --neutral-200: #E5E7EB;
+  --neutral-300: #D1D5DB;
+  --neutral-400: #9CA3AF;
+  --neutral-500: #6B7280;
+  --neutral-600: #4B5563;
+  --neutral-700: #374151;
+  --neutral-800: #1F2937;
+  --neutral-900: #111827;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #2D6A4F 0%, #40916C 100%);
+  --gradient-hero: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
+  --gradient-accent: linear-gradient(135deg, #52B788 0%, #74C69D 100%);
+  --gradient-fresh: linear-gradient(135deg, #40916C 0%, #52B788 100%);
+}`;
+            navigator.clipboard.writeText(cssVars).then(() => {
+                showToast('✓ CSS 변수 전체 복사됨');
+            }).catch(() => {
+                fallbackCopy(cssVars);
+                showToast('✓ CSS 변수 전체 복사됨');
+            });
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

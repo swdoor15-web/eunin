@@ -1,0 +1,15 @@
+{
+  "outputDirectory": "dist",
+  "buildCommand": null,
+  "installCommand": null,
+  "framework": null,
+  "public": true,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "https://bizen-homepage.weandbiz.workers.dev/sitemap.xml"
+    }
+  ]
+}

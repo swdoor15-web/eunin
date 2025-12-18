@@ -1,0 +1,26 @@
+name = "euninbiz-homepage"
+main = "automation/worker-deploy.js"
+compatibility_date = "2024-01-01"
+
+# ================================================
+# 환경변수 설정
+# 민감한 토큰은 Cloudflare 대시보드에서 설정
+# Workers & Pages > euninbiz-homepage > Settings > Variables
+# ================================================
+
+[vars]
+# Cloudflare 대시보드에서 설정할 변수들:
+# - RESEND_API_KEY
+# - TELEGRAM_BOT_TOKEN
+# - TELEGRAM_CHAT_ID
+# - AIRTABLE_BASE_ID
+# - AIRTABLE_TOKEN
+# - GA4_PRIVATE_KEY
+# - META_ACCESS_TOKEN
+
+AIRTABLE_TABLE_NAME = "고객정보"
+META_VERIFY_TOKEN = "euninbiz_meta_lead_2024"
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "euninbiz-homepage"
