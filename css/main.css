@@ -1,21 +1,21 @@
 /* ================================================
-   BIZEN 메인 사이트 CSS
+   은인자금파트너스 메인 사이트 CSS
    정책자금 컨설팅 홈페이지
    ================================================ */
 
-/* CSS Variables - BIZEN Brand Colors */
+/* CSS Variables - 은인자금파트너스 Brand Colors */
 :root {
-  /* Primary Colors - 딥 네이비 블루 (메인 브랜드) */
-  --primary: #1D4ED8;
-  --primary-dark: #1E40AF;
-  --primary-light: #DBEAFE;
-  --primary-hover: #2563EB;
+  /* Primary Colors - 포레스트 그린 (메인 브랜드) */
+  --primary: #2D6A4F;
+  --primary-dark: #1B4332;
+  --primary-light: #D8F3DC;
+  --primary-hover: #40916C;
 
-  /* Accent Colors - 브라이트 블루 (CTA, 강조) */
-  --accent: #3B82F6;
-  --accent-dark: #2563EB;
-  --accent-light: #60A5FA;
-  --accent-pale: #EFF6FF;
+  /* Accent Colors - 프레시 그린 (CTA, 강조) */
+  --accent: #52B788;
+  --accent-dark: #40916C;
+  --accent-light: #74C69D;
+  --accent-pale: #E8F5E9;
 
   /* Status Colors */
   --success: #10B981;
@@ -84,7 +84,7 @@ img {
 }
 
 /* ================================================
-   Header - BIZEN Style (Origin 기반)
+   Header - 은인자금파트너스 Style (Origin 기반)
    ================================================ */
 .header {
   position: fixed;
@@ -92,10 +92,10 @@ img {
   left: 0;
   right: 0;
   z-index: 100000;
-  background: linear-gradient(105deg, rgba(18, 18, 68, 0.99) 0%, rgba(30, 30, 110, 0.96) 35%, rgba(65, 65, 180, 0.85) 100%);
+  background: linear-gradient(105deg, rgba(27, 67, 50, 0.99) 0%, rgba(45, 106, 79, 0.96) 35%, rgba(82, 183, 136, 0.85) 100%);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 10px 32px rgba(30, 30, 110, 0.24);
+  box-shadow: 0 10px 32px rgba(45, 106, 79, 0.24);
   transition: all 0.3s ease;
 }
 
@@ -136,6 +136,27 @@ img {
   color: rgba(255, 255, 255, 0.82);
   letter-spacing: 0.2px;
   white-space: nowrap;
+}
+
+.logo-text-wrap {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.logo-main {
+  font-size: 28px;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 3px;
+}
+
+.logo-sub {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.5px;
+  margin-top: 4px;
 }
 
 .nav {
@@ -208,7 +229,7 @@ img {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 12px rgba(82, 183, 136, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -241,7 +262,7 @@ img {
 .btn-cta:hover {
   background: var(--accent-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 6px 20px rgba(82, 183, 136, 0.5), 0 0 20px rgba(82, 183, 136, 0.3);
 }
 
 /* Mobile Menu Button */
@@ -265,8 +286,8 @@ img {
   left: 0;
   right: 0;
   background: rgba(255, 255, 255, 0.98);
-  border-bottom: 1px solid rgba(30, 30, 110, 0.12);
-  box-shadow: 0 6px 20px rgba(30, 30, 110, 0.16);
+  border-bottom: 1px solid rgba(45, 106, 79, 0.12);
+  box-shadow: 0 6px 20px rgba(45, 106, 79, 0.16);
   z-index: 99999;
 }
 
@@ -287,7 +308,7 @@ img {
   justify-content: center;
   padding: 10px 8px;
   background: var(--neutral-50);
-  border: 1px solid rgba(30, 30, 110, 0.08);
+  border: 1px solid rgba(45, 106, 79, 0.08);
   border-radius: 10px;
   text-decoration: none;
   color: var(--neutral-800);
@@ -295,16 +316,16 @@ img {
   font-size: 13px;
   transition: all 0.3s ease;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(30, 30, 110, 0.08);
+  box-shadow: 0 2px 6px rgba(45, 106, 79, 0.08);
 }
 
 .mobile-nav-link:hover,
 .mobile-nav-link.active {
-  background: linear-gradient(135deg, rgba(30, 30, 110, 0.95), rgba(45, 45, 138, 0.88));
+  background: linear-gradient(135deg, rgba(45, 106, 79, 0.95), rgba(82, 183, 136, 0.88));
   color: white;
-  border-color: rgba(30, 30, 110, 0.2);
+  border-color: rgba(45, 106, 79, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(30, 30, 110, 0.18);
+  box-shadow: 0 8px 16px rgba(45, 106, 79, 0.18);
 }
 
 .mobile-nav-link.cta-link {
@@ -334,7 +355,7 @@ img {
 .mobile-nav-link.cta-link:hover {
   background: var(--accent-dark);
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.35);
+  box-shadow: 0 8px 16px rgba(82, 183, 136, 0.35);
 }
 
 /* ================================================
@@ -624,7 +645,7 @@ img {
    ================================================ */
 .cta-section {
   position: relative;
-  background: linear-gradient(135deg, #0a1628 0%, #1a3a5f 50%, #0a1628 100%);
+  background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 50%, #1B4332 100%);
   padding: 60px 0 0;
   overflow: hidden;
 }
@@ -636,9 +657,9 @@ img {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 50% 20%, rgba(96, 165, 250, 0.08) 0%, transparent 40%);
+    radial-gradient(circle at 20% 50%, rgba(82, 183, 136, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(64, 145, 108, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 20%, rgba(116, 198, 157, 0.08) 0%, transparent 40%);
   pointer-events: none;
 }
 
@@ -660,14 +681,14 @@ img {
   font-weight: 700;
   margin-bottom: 18px;
   line-height: 1.25;
-  text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+  text-shadow: 0 0 30px rgba(82, 183, 136, 0.5);
 }
 
 .cta-highlight {
   color: var(--accent-light);
   text-shadow:
-    0 0 20px rgba(96, 165, 250, 0.8),
-    0 0 40px rgba(96, 165, 250, 0.5);
+    0 0 20px rgba(116, 198, 157, 0.8),
+    0 0 40px rgba(116, 198, 157, 0.5);
 }
 
 .cta-desc {
@@ -675,7 +696,7 @@ img {
   line-height: 1.5;
   margin-bottom: 32px;
   color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+  text-shadow: 0 0 10px rgba(82, 183, 136, 0.3);
 }
 
 .cta-section .mobile-br {
@@ -711,25 +732,25 @@ img {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: white;
-  border: 1px solid rgba(96, 165, 250, 0.3);
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(116, 198, 157, 0.3);
+  box-shadow: 0 4px 20px rgba(82, 183, 136, 0.2);
 }
 
 .cta-btn-secondary:hover {
   transform: translateY(-3px);
   background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(96, 165, 250, 0.5);
-  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
+  border-color: rgba(116, 198, 157, 0.5);
+  box-shadow: 0 8px 30px rgba(82, 183, 136, 0.3);
 }
 
 .cta-btn-primary {
   background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%);
-  color: #1a3a5f;
+  color: #1B4332;
   font-weight: 700;
   border: none;
   box-shadow:
-    0 4px 20px rgba(59, 130, 246, 0.4),
-    0 0 40px rgba(59, 130, 246, 0.3);
+    0 4px 20px rgba(82, 183, 136, 0.4),
+    0 0 40px rgba(82, 183, 136, 0.3);
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
@@ -749,8 +770,8 @@ img {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
   color: white;
   box-shadow:
-    0 8px 30px rgba(59, 130, 246, 0.5),
-    0 0 50px rgba(59, 130, 246, 0.4);
+    0 8px 30px rgba(82, 183, 136, 0.5),
+    0 0 50px rgba(82, 183, 136, 0.4);
   transform: translateY(-3px);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -768,7 +789,7 @@ img {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(96, 165, 250, 0.3);
+  border: 1px solid rgba(116, 198, 157, 0.3);
   color: white;
   padding: 14px 28px;
   border-radius: 50px;
@@ -776,17 +797,17 @@ img {
   font-weight: 600;
   margin-top: 8px;
   box-shadow:
-    0 0 30px rgba(29, 78, 216, 0.2),
+    0 0 30px rgba(45, 106, 79, 0.2),
     0 4px 20px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
 .cta-badge:hover {
   background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(96, 165, 250, 0.5);
+  border-color: rgba(116, 198, 157, 0.5);
   box-shadow:
-    0 0 40px rgba(59, 130, 246, 0.3),
-    0 8px 25px rgba(29, 78, 216, 0.25);
+    0 0 40px rgba(82, 183, 136, 0.3),
+    0 8px 25px rgba(45, 106, 79, 0.25);
 }
 
 .cta-badge svg {
@@ -797,7 +818,7 @@ img {
   font-size: 24px;
   font-weight: 800;
   color: var(--accent-light);
-  text-shadow: 0 0 15px rgba(96, 165, 250, 0.8);
+  text-shadow: 0 0 15px rgba(116, 198, 157, 0.8);
 }
 
 /* 정부기관 섹션 */
@@ -811,7 +832,7 @@ img {
   color: white;
   margin-bottom: 28px;
   font-weight: 600;
-  text-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+  text-shadow: 0 0 15px rgba(82, 183, 136, 0.5);
 }
 
 .gov-logos-wrapper {
@@ -822,8 +843,8 @@ img {
   padding: 28px 0;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-  border-top: 1px solid rgba(96, 165, 250, 0.2);
-  border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+  border-top: 1px solid rgba(116, 198, 157, 0.2);
+  border-bottom: 1px solid rgba(116, 198, 157, 0.2);
 }
 
 .gov-logos {
@@ -859,14 +880,14 @@ img {
   padding: 16px;
   transition: all 0.3s ease;
   text-decoration: none;
-  box-shadow: 0 2px 10px rgba(59, 130, 246, 0.2);
-  border: 1px solid rgba(96, 165, 250, 0.1);
+  box-shadow: 0 2px 10px rgba(82, 183, 136, 0.2);
+  border: 1px solid rgba(116, 198, 157, 0.1);
 }
 
 .gov-logo:hover {
   transform: scale(1.05) translateY(-2px);
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
-  border-color: rgba(96, 165, 250, 0.3);
+  box-shadow: 0 10px 30px rgba(82, 183, 136, 0.3);
+  border-color: rgba(116, 198, 157, 0.3);
   background: white;
 }
 
@@ -897,11 +918,11 @@ img {
 .gov-indicator.active {
   background: var(--accent-light);
   transform: scale(1.2);
-  box-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+  box-shadow: 0 0 10px rgba(116, 198, 157, 0.5);
 }
 
 .gov-indicator:hover {
-  background: rgba(96, 165, 250, 0.6);
+  background: rgba(116, 198, 157, 0.6);
   transform: scale(1.1);
 }
 
@@ -1477,7 +1498,7 @@ img {
 .form-submit:hover {
   background: var(--accent-dark);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 8px 20px rgba(82, 183, 136, 0.3);
 }
 
 .form-benefits {
@@ -1575,8 +1596,8 @@ img {
     left: 0;
     right: 0;
     background: rgba(255, 255, 255, 0.98);
-    border-bottom: 1px solid rgba(30, 30, 110, 0.12);
-    box-shadow: 0 6px 20px rgba(30, 30, 110, 0.16);
+    border-bottom: 1px solid rgba(45, 106, 79, 0.12);
+    box-shadow: 0 6px 20px rgba(45, 106, 79, 0.16);
     z-index: 99999;
   }
 

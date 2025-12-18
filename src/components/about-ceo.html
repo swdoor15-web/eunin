@@ -47,7 +47,7 @@
     }
 
     .about-ceo-section .highlight {
-        color: #3B82F6;
+        color: #52B788;
         font-weight: 800;
     }
 
@@ -69,7 +69,7 @@
     }
 
     .about-ceo-section .emphasis {
-        color: #3B82F6;
+        color: #52B788;
         font-weight: 700;
     }
 
@@ -77,42 +77,64 @@
         display: none;
     }
 
-    /* 2명 카드 레이아웃 */
+    /* 1명 카드 레이아웃 - 가로형 */
     .about-ceo-section .team-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
+        display: flex;
+        justify-content: center;
         max-width: 900px;
         margin: 0 auto;
     }
 
-    /* 개별 카드 */
+    /* 개별 카드 - 가로형 디자인 */
     .about-ceo-section .member-card {
-        background: #F8FAFB;
-        padding: 30px 20px;
-        border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(27, 58, 95, 0.08);
+        background: linear-gradient(135deg, #ffffff 0%, #F8FAFB 100%);
+        padding: 50px;
+        border-radius: 24px;
+        box-shadow: 0 15px 60px rgba(27, 67, 50, 0.12);
         border: 2px solid #E5E7EB;
-        text-align: center;
         position: relative;
-        transition: all 0.3s ease;
+        transition: all 0.4s ease;
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        width: 100%;
+        max-width: 750px;
+        overflow: hidden;
+    }
+
+    .about-ceo-section .member-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 6px;
+        height: 100%;
+        background: linear-gradient(180deg, #52B788, #2D6A4F);
+        border-radius: 24px 0 0 24px;
     }
 
     .about-ceo-section .member-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 50px rgba(59, 130, 246, 0.15);
-        border-color: #60A5FA;
+        transform: translateY(-8px);
+        box-shadow: 0 25px 80px rgba(82, 183, 136, 0.2);
+        border-color: #74C69D;
     }
 
     /* 사진 */
     .about-ceo-section .member-image {
-        width: 170px;
-        height: 210px;
-        margin: 0 auto 20px;
-        border-radius: 16px;
+        width: 220px;
+        height: 280px;
+        min-width: 220px;
+        border-radius: 20px;
         overflow: hidden;
         background: #ffffff;
-        border: 3px solid #E5E7EB;
+        border: 4px solid #E5E7EB;
+        box-shadow: 0 10px 30px rgba(27, 67, 50, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .about-ceo-section .member-card:hover .member-image {
+        border-color: #74C69D;
+        box-shadow: 0 15px 40px rgba(82, 183, 136, 0.2);
     }
 
     .about-ceo-section .member-image img {
@@ -122,45 +144,59 @@
         object-position: center top;
     }
 
+    /* 정보 영역 */
+    .about-ceo-section .member-info {
+        flex: 1;
+        text-align: left;
+    }
+
     /* 이름 */
     .about-ceo-section .member-name {
-        font-size: 23px;
-        font-weight: 700;
-        color: #1B3A5F;
+        font-size: 32px;
+        font-weight: 800;
+        color: #1B4332;
         margin-bottom: 8px;
+        letter-spacing: 2px;
     }
 
     /* 직급 */
     .about-ceo-section .member-position {
-        font-size: 16px;
-        color: #3B82F6;
-        font-weight: 600;
-        margin-bottom: 20px;
+        font-size: 18px;
+        color: #52B788;
+        font-weight: 700;
+        margin-bottom: 24px;
+        display: inline-block;
+        background: rgba(82, 183, 136, 0.1);
+        padding: 8px 16px;
+        border-radius: 20px;
     }
 
     /* 자격사항 */
     .about-ceo-section .member-qualifications {
-        display: inline-block;
-        text-align: left;
-        max-width: 240px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 
     .about-ceo-section .qual-item {
-        font-size: 13px;
+        font-size: 16px;
         color: #2D3748;
-        margin-bottom: 8px;
-        padding-left: 20px;
+        padding: 12px 16px;
+        padding-left: 45px;
         position: relative;
-        line-height: 1.6;
+        line-height: 1.5;
+        background: rgba(82, 183, 136, 0.05);
+        border-radius: 12px;
+        border-left: 3px solid #52B788;
     }
 
     .about-ceo-section .qual-item::before {
         content: '✓';
         position: absolute;
-        left: 0;
-        color: #60A5FA;
+        left: 16px;
+        color: #52B788;
         font-weight: bold;
-        font-size: 16px;
+        font-size: 18px;
     }
 
     /* 모바일 전용 띄어쓰기 */
@@ -170,12 +206,19 @@
 
     /* 태블릿 반응형 */
     @media (max-width: 1024px) {
-        .about-ceo-section .team-grid {
-            gap: 30px;
+        .about-ceo-section .member-card {
+            padding: 40px 35px;
+            gap: 40px;
         }
 
-        .about-ceo-section .member-card {
-            padding: 35px 25px;
+        .about-ceo-section .member-image {
+            width: 200px;
+            height: 260px;
+            min-width: 200px;
+        }
+
+        .about-ceo-section .member-name {
+            font-size: 28px;
         }
     }
 
@@ -205,25 +248,55 @@
             font-size: 16px;
         }
 
-        .about-ceo-section .team-grid {
-            grid-template-columns: 1fr;
-            gap: 30px;
+        .about-ceo-section .member-card {
+            flex-direction: column;
+            padding: 35px 25px;
+            gap: 25px;
+            text-align: center;
         }
 
-        .about-ceo-section .member-card {
-            padding: 30px 20px;
+        .about-ceo-section .member-card::before {
+            width: 100%;
+            height: 5px;
+            border-radius: 24px 24px 0 0;
+            background: linear-gradient(90deg, #52B788, #2D6A4F);
         }
 
         .about-ceo-section .member-image {
             width: 180px;
-            height: 220px;
+            height: 230px;
+            min-width: 180px;
+            margin: 0 auto;
+        }
+
+        .about-ceo-section .member-info {
+            text-align: center;
         }
 
         .about-ceo-section .member-name {
-            font-size: 24px;
+            font-size: 26px;
         }
 
         .about-ceo-section .member-position {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .about-ceo-section .member-qualifications {
+            align-items: stretch;
+            width: 100%;
+        }
+
+        .about-ceo-section .qual-item {
+            font-size: 14px;
+            padding: 10px 14px 10px 40px;
+            text-align: left;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .about-ceo-section .qual-item::before {
+            left: 14px;
             font-size: 16px;
         }
 
@@ -252,21 +325,33 @@
             font-size: 24px;
         }
 
+        .about-ceo-section .member-card {
+            padding: 30px 20px;
+        }
+
         .about-ceo-section .member-image {
             width: 160px;
             height: 200px;
+            min-width: 160px;
         }
 
         .about-ceo-section .member-name {
-            font-size: 22px;
+            font-size: 24px;
         }
 
         .about-ceo-section .member-position {
             font-size: 15px;
+            padding: 6px 14px;
         }
 
         .about-ceo-section .qual-item {
             font-size: 13px;
+            padding: 10px 12px 10px 36px;
+        }
+
+        .about-ceo-section .qual-item::before {
+            left: 12px;
+            font-size: 14px;
         }
 
         .about-ceo-section .greeting-section h3 {
@@ -283,78 +368,68 @@
 <section class="about-ceo-section">
     <div class="container">
         <div class="section-header">
-            <h2>대표 소개</h2>
-            <p>정책자금 전문가가 함께합니다</p>
+            <h2>대표 인사말</h2>
+            <p>신뢰할 수 있는 파트너가 함께합니다</p>
         </div>
 
         <!-- 공통 인사말 -->
         <div class="greeting-section">
             <h3>
-                정책전문가가<br class="mobile-br">
-                <span class="highlight">승인률</span>과 <span class="highlight">한도</span>를 높여드립니다
+                정책자금 전문가가<br class="mobile-br">
+                <span class="highlight">성공</span>을 <span class="highlight">함께</span> 만들어갑니다
             </h3>
             <div class="greeting-text">
                 <p>
-                    안녕하십니까, BIZEN입니다.
+                    안녕하십니까, 은인자금파트너스 대표 조은예입니다.
                 </p>
                 <p class="desc-desktop">
-                    저희는 <span class="emphasis">정책자금 및 정부지원자금 정책분석 전문가</span>로 구성되어<br>
-                    정책자금 심사 기준과 평가 방법을 정확히 알고 있습니다.<br>
-                    그 경험을 바탕으로 대표님의 승인 가능성을 높여드립니다.
+                    저희는 <span class="emphasis">정책자금 심사 기준과 평가 방법</span>을 깊이 이해하고<br>
+                    수많은 기업의 자금 확보를 성공적으로 지원해왔습니다.<br>
+                    그 경험과 노하우로 대표님의 승인 가능성을 높여드립니다.
                 </p>
                 <p class="desc-mobile">
-                    저희는 정책자금 및 정부지원자금 정책분석<br>
-                    <span class="emphasis">전문가</span>로 구성되어 정책자금 심사 기준과<br>
-                    평가 방법을 정확히 알고 있습니다.<br>
+                    저희는 <span class="emphasis">정책자금 심사 기준과</span><br>
+                    <span class="emphasis">평가 방법</span>을 깊이 이해하고<br>
+                    수많은 기업의 자금 확보를 지원해왔습니다.<br>
                     <br>
-                    그 경험을 바탕으로 대표님의<br>
+                    그 경험과 노하우로 대표님의<br>
                     승인 가능성을 높여드립니다.
                 </p>
                 <p class="desc-desktop">
-                    많은 대표님들이 복잡한 서류와 까다로운 심사로 정책자금을 포기하십니다.<br>
-                    하지만 <span class="emphasis">올바른 준비와 전략</span>이 있다면 충분히 가능합니다.
+                    복잡한 서류와 까다로운 심사에 막혀 포기하시는 분들이 많습니다.<br>
+                    하지만 <span class="emphasis">정확한 분석과 체계적인 준비</span>가 있다면 반드시 길이 있습니다.
                 </p>
                 <p class="desc-mobile">
-                    많은 대표님들이 복잡한 서류와 까다로운<br>
-                    심사로 정책자금을 포기하십니다.<br>
-                    하지만 <span class="emphasis">올바른 준비와 전략</span>이 있다면<br>
-                    충분히 가능합니다.
+                    복잡한 서류와 까다로운 심사에 막혀<br>
+                    포기하시는 분들이 많습니다.<br>
+                    하지만 <span class="emphasis">정확한 분석과 체계적인 준비</span>가<br>
+                    있다면 반드시 길이 있습니다.
                 </p>
                 <p class="desc-desktop">
-                    <span class="emphasis">대표님의 성공이 저희의 목표입니다.</span> 최선의 방법을 함께 찾아드리겠습니다.
+                    <span class="emphasis">대표님의 성공이 저희의 보람입니다.</span> 끝까지 함께하겠습니다.
                 </p>
                 <p class="desc-mobile">
-                    <span class="emphasis">대표님의 성공이 저희의 목표입니다.</span><br>
-                    최선의 방법을 함께 찾아드리겠습니다.
+                    <span class="emphasis">대표님의 성공이 저희의 보람입니다.</span><br>
+                    끝까지 함께하겠습니다.
                 </p>
             </div>
         </div>
 
-        <!-- 2명 카드 그리드 -->
+        <!-- 대표 프로필 카드 -->
         <div class="team-grid">
-            <!-- 김우영 센터장 (왼쪽) -->
             <div class="member-card">
                 <div class="member-image">
-                    <img src="기업심사관_김우영 복사.png" alt="김우영 센터장">
+                    <img src="프로필.png" alt="조은예 대표">
                 </div>
-                <div class="member-name">김 우 영</div>
-                <div class="member-position">센터장 / 기업심사관</div>
-                <div class="member-qualifications">
-                    <div class="qual-item">사업계획서 컨설팅</div>
-                    <div class="qual-item">자금 승인률 최적화</div>
-                </div>
-            </div>
-
-            <!-- 전예진 수석 (오른쪽) -->
-            <div class="member-card">
-                <div class="member-image">
-                    <img src="기업심사관_전예진 복사.png" alt="전예진 수석">
-                </div>
-                <div class="member-name">전 예 진</div>
-                <div class="member-position">수석 / 기업심사관</div>
-                <div class="member-qualifications">
-                    <div class="qual-item">기업 재무 분석 전문</div>
-                    <div class="qual-item">자금 한도 최대화 전략</div>
+                <div class="member-info">
+                    <div class="member-name">조 은 예</div>
+                    <div class="member-position">대표 / 기업심사관</div>
+                    <div class="member-qualifications">
+                        <div class="qual-item">정책자금 심사 기준 분석 전문</div>
+                        <div class="qual-item">사업계획서 작성 및 컨설팅</div>
+                        <div class="qual-item">맞춤형 자금 확보 전략 수립</div>
+                        <div class="qual-item">승인 후 자금 집행 관리</div>
+                    </div>
                 </div>
             </div>
         </div>

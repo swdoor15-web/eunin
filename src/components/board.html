@@ -1,37 +1,37 @@
     <!-- Board 섹션 - 공지사항/뉴스 게시판 -->
     <style>
-        .bizen-board-section {
+        .eunin-board-section {
             position: relative;
             width: 100%;
             padding: 50px 20px 40px;
             background: linear-gradient(180deg, #0f2847 0%, #0a1628 100%);
         }
-        .bizen-board-section .board-container {
+        .eunin-board-section .board-container {
             max-width: 1400px;
             margin: 0 auto;
             overflow: visible;
         }
-        .bizen-board-section .board-header {
+        .eunin-board-section .board-header {
             text-align: center;
             margin-bottom: 30px;
         }
-        .bizen-board-section .board-title {
+        .eunin-board-section .board-title {
             font-size: 24px;
             font-weight: 900;
             color: #ffffff;
             margin-bottom: 10px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
-        .bizen-board-section .highlight-accent {
-            color: #93C5FD;
-            text-shadow: 0 0 20px rgba(147, 197, 253, 0.6);
+        .eunin-board-section .highlight-accent {
+            color: #95D5B2;
+            text-shadow: 0 0 20px rgba(149, 213, 178, 0.6);
         }
-        .bizen-board-section .board-subtitle {
+        .eunin-board-section .board-subtitle {
             font-size: 14px;
             color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
         }
-        .bizen-board-section .board-grid {
+        .eunin-board-section .board-grid {
             display: flex !important;
             flex-wrap: nowrap !important;
             flex-direction: row !important;
@@ -50,90 +50,90 @@
             margin-left: -20px;
             margin-right: -20px;
         }
-        .bizen-board-section .board-grid::-webkit-scrollbar {
+        .eunin-board-section .board-grid::-webkit-scrollbar {
             display: none;
         }
-        .bizen-board-section .board-card {
+        .eunin-board-section .board-card {
             flex: 0 0 280px;
             min-width: 280px;
             scroll-snap-align: start;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(82, 183, 136, 0.2);
             border-radius: 16px;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s ease;
             animation: fadeInUp 0.6s ease backwards;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.1), inset 0 0 20px rgba(59, 130, 246, 0.03);
+            box-shadow: 0 0 15px rgba(82, 183, 136, 0.1), inset 0 0 20px rgba(82, 183, 136, 0.03);
         }
-        .bizen-board-section .board-card:nth-child(1) { animation-delay: 0.1s; }
-        .bizen-board-section .board-card:nth-child(2) { animation-delay: 0.2s; }
-        .bizen-board-section .board-card:nth-child(3) { animation-delay: 0.3s; }
-        .bizen-board-section .board-card:nth-child(4) { animation-delay: 0.4s; }
-        .bizen-board-section .board-card:nth-child(5) { animation-delay: 0.5s; }
-        .bizen-board-section .board-card:nth-child(6) { animation-delay: 0.6s; }
-        .bizen-board-section .board-card:hover {
+        .eunin-board-section .board-card:nth-child(1) { animation-delay: 0.1s; }
+        .eunin-board-section .board-card:nth-child(2) { animation-delay: 0.2s; }
+        .eunin-board-section .board-card:nth-child(3) { animation-delay: 0.3s; }
+        .eunin-board-section .board-card:nth-child(4) { animation-delay: 0.4s; }
+        .eunin-board-section .board-card:nth-child(5) { animation-delay: 0.5s; }
+        .eunin-board-section .board-card:nth-child(6) { animation-delay: 0.6s; }
+        .eunin-board-section .board-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(96, 165, 250, 0.5);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(59, 130, 246, 0.3), 0 0 60px rgba(96, 165, 250, 0.15);
+            border-color: rgba(116, 198, 157, 0.5);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(82, 183, 136, 0.3), 0 0 60px rgba(116, 198, 157, 0.15);
         }
-        .bizen-board-section .card-thumbnail {
+        .eunin-board-section .card-thumbnail {
             width: 100%;
             height: 160px;
             object-fit: cover;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(15, 40, 71, 0.5));
+            background: linear-gradient(135deg, rgba(82, 183, 136, 0.3), rgba(15, 40, 71, 0.5));
             position: relative;
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            border-bottom: 1px solid rgba(82, 183, 136, 0.2);
         }
-        .bizen-board-section .card-thumbnail::after {
+        .eunin-board-section .card-thumbnail::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            border: 1px solid rgba(96, 165, 250, 0.15);
-            box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(116, 198, 157, 0.15);
+            box-shadow: inset 0 0 20px rgba(82, 183, 136, 0.1);
             pointer-events: none;
         }
-        .bizen-board-section .board-card:hover .card-thumbnail::after {
-            border-color: rgba(96, 165, 250, 0.3);
-            box-shadow: inset 0 0 30px rgba(59, 130, 246, 0.2);
+        .eunin-board-section .board-card:hover .card-thumbnail::after {
+            border-color: rgba(116, 198, 157, 0.3);
+            box-shadow: inset 0 0 30px rgba(82, 183, 136, 0.2);
         }
-        .bizen-board-section .card-thumbnail img {
+        .eunin-board-section .card-thumbnail img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .bizen-board-section .card-placeholder {
+        .eunin-board-section .card-placeholder {
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(15, 40, 71, 0.4));
+            background: linear-gradient(135deg, rgba(82, 183, 136, 0.2), rgba(15, 40, 71, 0.4));
         }
-        .bizen-board-section .card-placeholder svg {
+        .eunin-board-section .card-placeholder svg {
             width: 48px;
             height: 48px;
-            fill: rgba(147, 197, 253, 0.5);
+            fill: rgba(149, 213, 178, 0.5);
         }
-        .bizen-board-section .card-content {
+        .eunin-board-section .card-content {
             padding: 20px;
         }
-        .bizen-board-section .card-category {
+        .eunin-board-section .card-category {
             display: inline-block;
             padding: 4px 10px;
-            background: rgba(59, 130, 246, 0.3);
+            background: rgba(82, 183, 136, 0.3);
             border-radius: 20px;
             font-size: 11px;
             font-weight: 600;
-            color: #93C5FD;
+            color: #95D5B2;
             margin-bottom: 10px;
         }
-        .bizen-board-section .card-title {
+        .eunin-board-section .card-title {
             font-size: 16px;
             font-weight: 700;
             color: #ffffff;
@@ -143,73 +143,73 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .bizen-board-section .card-excerpt {
+        .eunin-board-section .card-excerpt {
             display: none;
         }
-        .bizen-board-section .card-meta {
+        .eunin-board-section .card-meta {
             display: flex;
             align-items: center;
             justify-content: space-between;
             font-size: 12px;
             color: rgba(255, 255, 255, 0.5);
         }
-        .bizen-board-section .card-date {
+        .eunin-board-section .card-date {
             display: flex;
             align-items: center;
             gap: 5px;
         }
-        .bizen-board-section .card-date svg {
+        .eunin-board-section .card-date svg {
             width: 14px;
             height: 14px;
             fill: currentColor;
         }
-        .bizen-board-section .card-views {
+        .eunin-board-section .card-views {
             display: flex;
             align-items: center;
             gap: 5px;
         }
-        .bizen-board-section .card-views svg {
+        .eunin-board-section .card-views svg {
             width: 14px;
             height: 14px;
             fill: currentColor;
         }
-        .bizen-board-section .board-more {
+        .eunin-board-section .board-more {
             text-align: center;
         }
-        .bizen-board-section .board-more-btn {
+        .eunin-board-section .board-more-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             padding: 14px 30px;
             background: transparent;
-            border: 2px solid rgba(59, 130, 246, 0.5);
+            border: 2px solid rgba(82, 183, 136, 0.5);
             border-radius: 30px;
-            color: #93C5FD;
+            color: #95D5B2;
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .bizen-board-section .board-more-btn:hover {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: rgba(59, 130, 246, 0.8);
+        .eunin-board-section .board-more-btn:hover {
+            background: rgba(82, 183, 136, 0.2);
+            border-color: rgba(82, 183, 136, 0.8);
             transform: translateY(-2px);
         }
-        .bizen-board-section .board-more-btn svg {
+        .eunin-board-section .board-more-btn svg {
             width: 18px;
             height: 18px;
             fill: currentColor;
         }
-        .bizen-board-section .board-loading {
+        .eunin-board-section .board-loading {
             text-align: center;
             padding: 60px 20px;
             color: rgba(255, 255, 255, 0.6);
         }
-        .bizen-board-section .board-loading .spinner {
+        .eunin-board-section .board-loading .spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid rgba(59, 130, 246, 0.3);
-            border-top-color: #93C5FD;
+            border: 3px solid rgba(82, 183, 136, 0.3);
+            border-top-color: #95D5B2;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 15px;
@@ -217,15 +217,15 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        .bizen-board-section .board-empty {
+        .eunin-board-section .board-empty {
             text-align: center;
             padding: 60px 20px;
             color: rgba(255, 255, 255, 0.6);
         }
-        .bizen-board-section .board-empty svg {
+        .eunin-board-section .board-empty svg {
             width: 60px;
             height: 60px;
-            fill: rgba(59, 130, 246, 0.4);
+            fill: rgba(82, 183, 136, 0.4);
             margin-bottom: 15px;
         }
 
@@ -253,7 +253,7 @@
         }
         .board-modal {
             background: linear-gradient(135deg, #0f2847 0%, #0a1628 100%);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            border: 1px solid rgba(82, 183, 136, 0.3);
             border-radius: 20px;
             max-width: 800px;
             width: 100%;
@@ -283,7 +283,7 @@
             z-index: 10;
         }
         .board-modal-close:hover {
-            background: rgba(59, 130, 246, 0.4);
+            background: rgba(82, 183, 136, 0.4);
         }
         .board-modal-close svg {
             width: 20px;
@@ -302,11 +302,11 @@
         .board-modal-category {
             display: inline-block;
             padding: 6px 14px;
-            background: rgba(59, 130, 246, 0.3);
+            background: rgba(82, 183, 136, 0.3);
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
-            color: #93C5FD;
+            color: #95D5B2;
             margin-bottom: 15px;
         }
         .board-modal-title {
@@ -345,11 +345,11 @@
         }
 
         @media (min-width: 768px) {
-            .bizen-board-section { padding: 70px 20px 50px; }
-            .bizen-board-section .board-header { margin-bottom: 50px; }
-            .bizen-board-section .board-title { font-size: 42px; }
-            .bizen-board-section .board-subtitle { font-size: 18px; }
-            .bizen-board-section .board-grid {
+            .eunin-board-section { padding: 70px 20px 50px; }
+            .eunin-board-section .board-header { margin-bottom: 50px; }
+            .eunin-board-section .board-title { font-size: 42px; }
+            .eunin-board-section .board-subtitle { font-size: 18px; }
+            .eunin-board-section .board-grid {
                 display: grid !important;
                 grid-template-columns: repeat(2, 1fr);
                 gap: 25px;
@@ -359,21 +359,21 @@
                 margin-left: 0;
                 margin-right: 0;
             }
-            .bizen-board-section .board-card {
+            .eunin-board-section .board-card {
                 flex: none;
                 min-width: unset;
                 width: 100%;
             }
-            .bizen-board-section .card-thumbnail { height: 180px; }
-            .bizen-board-section .card-title { font-size: 18px; }
+            .eunin-board-section .card-thumbnail { height: 180px; }
+            .eunin-board-section .card-title { font-size: 18px; }
             .board-modal-title { font-size: 28px; }
             .board-modal-body { font-size: 16px; }
         }
         @media (min-width: 1024px) {
-            .bizen-board-section { padding: 80px 20px 60px; }
-            .bizen-board-section .board-title { font-size: 48px; }
-            .bizen-board-section .board-subtitle { font-size: 20px; }
-            .bizen-board-section .board-grid {
+            .eunin-board-section { padding: 80px 20px 60px; }
+            .eunin-board-section .board-title { font-size: 48px; }
+            .eunin-board-section .board-subtitle { font-size: 20px; }
+            .eunin-board-section .board-grid {
                 display: grid !important;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 30px;
@@ -383,22 +383,22 @@
                 margin-left: 0;
                 margin-right: 0;
             }
-            .bizen-board-section .board-card {
+            .eunin-board-section .board-card {
                 flex: none;
                 min-width: unset;
                 width: 100%;
             }
-            .bizen-board-section .card-thumbnail { height: 200px; }
+            .eunin-board-section .card-thumbnail { height: 200px; }
             .board-modal-content { padding: 40px; }
             .board-modal-title { font-size: 32px; }
         }
     </style>
 
-    <section class="bizen-board-section" id="board">
+    <section class="eunin-board-section" id="board">
         <div class="board-container">
             <div class="board-header">
-                <h2 class="board-title"><span class="highlight-accent">공지사항</span> & 뉴스</h2>
-                <p class="board-subtitle">BIZEN의 최신 소식과 정책자금 관련 정보를 확인하세요</p>
+                <h2 class="board-title"><span class="highlight-accent">소식</span> & 정보</h2>
+                <p class="board-subtitle">은인자금파트너스가 전하는 정책자금 최신 동향</p>
             </div>
 
             <!-- 로딩 상태 -->
@@ -419,7 +419,7 @@
             <!-- 더보기 버튼 -->
             <div class="board-more" id="board-more" style="display: none;">
                 <button class="board-more-btn" id="load-more-btn">
-                    <span>더 많은 소식 보기</span>
+                    <span>소식 더보기</span>
                     <svg viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
                 </button>
             </div>
@@ -452,9 +452,9 @@
     </div>
 
     <script>
-    // BIZEN 게시판 - Worker API 연동
+    // 은인자금파트너스 게시판 - Worker API 연동
     (function() {
-        const WORKER_URL = 'https://bizen-homepage.weandbiz.workers.dev';
+        const WORKER_URL = 'https://eunin-homepage.weandbiz.workers.dev';
 
         const POSTS_PER_PAGE = 6;
         let currentPage = 1;
@@ -514,63 +514,63 @@
             allPosts = [
                 {
                     id: '1',
-                    title: '2024년 하반기 정책자금 신청 일정 안내',
-                    content: '2024년 하반기 정책자금 신청 일정을 안내드립니다.\n\n■ 중소벤처기업부 정책자금\n- 신청기간: 2024년 7월 1일 ~ 12월 31일\n- 대상: 중소기업 및 소상공인\n- 지원한도: 최대 100억원\n\n■ 신용보증기금 보증지원\n- 신청기간: 상시\n- 대상: 신용등급 BB 이상 기업\n- 지원한도: 최대 30억원\n\n자세한 내용은 BIZEN으로 문의해 주세요.',
-                    excerpt: '2024년 하반기 정책자금 신청 일정을 안내드립니다. 중소벤처기업부 정책자금 및 신용보증기금 보증지원...',
-                    category: '공지',
+                    title: '2025년 상반기 정책자금 접수 일정 공지',
+                    content: '2025년 상반기 주요 정책자금 접수 일정을 안내합니다.\n\n■ 중소기업진흥공단 정책자금\n- 접수기간: 2025년 1월 2일 ~ 예산 소진시\n- 대상: 업력 7년 이상 중소기업\n- 지원한도: 최대 60억원\n\n■ 기술보증기금 혁신성장 보증\n- 접수기간: 연중 상시\n- 대상: 기술력 보유 중소기업\n- 지원한도: 최대 50억원\n\n상담 문의는 은인자금파트너스로 연락 바랍니다.',
+                    excerpt: '2025년 상반기 주요 정책자금 접수 일정을 안내합니다. 중소기업진흥공단 및 기술보증기금...',
+                    category: '안내',
                     thumbnail: null,
-                    date: '2024-06-15',
-                    views: 1247
+                    date: '2024-12-15',
+                    views: 1532
                 },
                 {
                     id: '2',
-                    title: '스타트업 A사, BIZEN 컨설팅으로 5억 자금 확보 성공',
-                    content: 'AI 기반 물류 솔루션을 개발하는 스타트업 A사가 BIZEN의 전문 컨설팅을 통해 정책자금 5억원을 성공적으로 확보했습니다.\n\nA사는 창업 2년차 기업으로, 기술력은 있었지만 자금 확보에 어려움을 겪고 있었습니다. BIZEN의 체계적인 분석과 맞춤 전략 수립을 통해 기술보증기금의 혁신창업기업 지원사업에 선정되어 5억원의 자금을 확보할 수 있었습니다.\n\n"BIZEN 없이는 불가능했을 것입니다. 전문적인 컨설팅에 감사드립니다." - A사 대표',
-                    excerpt: 'AI 기반 물류 솔루션을 개발하는 스타트업 A사가 BIZEN의 전문 컨설팅을 통해 정책자금 5억원을 성공적으로...',
-                    category: '성공사례',
+                    title: '식품제조업 D사, 시설자금 4억 확보 완료',
+                    content: '경기도 소재 식품제조업체 D사가 은인자금파트너스와 함께 시설자금 4억원을 확보했습니다.\n\nD사는 HACCP 인증 시설 확장을 위한 자금이 필요했습니다. 은인자금파트너스는 D사의 사업 현황을 분석해 소상공인시장진흥공단의 성장촉진자금과 지역신용보증재단 보증을 조합하여 총 4억원의 자금을 확보할 수 있었습니다.\n\n"복잡한 서류 작업을 대신 처리해주셔서 본업에 집중할 수 있었습니다." - D사 대표',
+                    excerpt: '경기도 소재 식품제조업체 D사가 은인자금파트너스와 함께 시설자금 4억원을 확보했습니다...',
+                    category: '사례',
                     thumbnail: null,
-                    date: '2024-06-10',
-                    views: 892
+                    date: '2024-12-10',
+                    views: 724
                 },
                 {
                     id: '3',
-                    title: '정책자금 신청 시 주의해야 할 5가지',
-                    content: '정책자금 신청 시 반드시 주의해야 할 5가지 사항을 안내드립니다.\n\n1. 서류 준비는 미리미리\n사업계획서, 재무제표, 기술자료 등 필수 서류를 사전에 꼼꼼히 준비하세요.\n\n2. 신용등급 관리\n대표자 및 기업 신용등급이 심사에 큰 영향을 미칩니다.\n\n3. 자금 용도 명확화\n자금 사용 계획을 구체적으로 작성해야 합니다.\n\n4. 일정 확인\n각 정책자금마다 신청 기간이 다르니 미리 확인하세요.\n\n5. 전문가 상담\n경험 많은 전문가의 도움을 받으면 승인 확률이 높아집니다.',
-                    excerpt: '정책자금 신청 시 반드시 주의해야 할 5가지 사항을 안내드립니다. 서류 준비, 신용등급 관리...',
+                    title: '정책자금 승인률 높이는 서류 작성 요령',
+                    content: '정책자금 승인률을 높이기 위한 서류 작성 요령을 공유합니다.\n\n1. 사업계획서는 구체적으로\n막연한 계획보다 수치와 일정이 명확한 계획이 좋은 평가를 받습니다.\n\n2. 자금 용도를 세분화\n총액만 기재하지 말고 항목별로 상세히 작성하세요.\n\n3. 기업의 강점 부각\n업력, 매출 성장률, 기술력 등 객관적 지표를 활용하세요.\n\n4. 재무제표 정합성 확인\n손익계산서와 재무상태표의 수치가 일치하는지 점검하세요.\n\n5. 제출 전 검토 필수\n오탈자와 누락 서류가 없는지 최종 점검이 중요합니다.',
+                    excerpt: '정책자금 승인률을 높이기 위한 서류 작성 요령을 공유합니다. 사업계획서 작성, 자금 용도 세분화...',
                     category: '정보',
                     thumbnail: null,
-                    date: '2024-06-05',
-                    views: 2156
+                    date: '2024-12-05',
+                    views: 1876
                 },
                 {
                     id: '4',
-                    title: 'BIZEN, 2024년 상반기 정책자금 컨설팅 실적 발표',
-                    content: 'BIZEN이 2024년 상반기 정책자금 컨설팅 실적을 발표했습니다.\n\n■ 주요 성과\n- 컨설팅 기업 수: 47개사\n- 총 자금 확보액: 156억원\n- 평균 승인률: 94.7%\n\n특히 제조업 및 IT 분야에서 높은 성공률을 기록했으며, 재도전 기업의 성공률도 96%에 달했습니다.\n\nBIZEN은 하반기에도 더 많은 기업의 성장을 돕겠습니다.',
-                    excerpt: 'BIZEN이 2024년 상반기 정책자금 컨설팅 실적을 발표했습니다. 총 47개사, 156억원 자금 확보...',
-                    category: '뉴스',
+                    title: '은인자금파트너스 12월 상담 일정 안내',
+                    content: '12월 상담 일정을 안내드립니다.\n\n■ 전화 상담\n- 평일: 09:00 ~ 18:00\n- 토요일: 10:00 ~ 14:00 (예약제)\n\n■ 방문 상담\n- 사전 예약 후 방문 가능\n- 예약 문의: 010-6660-5118\n\n연말 정책자금 마감이 다가오고 있습니다. 내년 사업 자금 계획을 세우고 계신 대표님들의 많은 상담 바랍니다.',
+                    excerpt: '12월 상담 일정을 안내드립니다. 전화 상담 및 방문 상담 예약...',
+                    category: '안내',
                     thumbnail: null,
-                    date: '2024-05-28',
-                    views: 734
+                    date: '2024-11-28',
+                    views: 456
                 },
                 {
                     id: '5',
-                    title: '중소벤처기업부 신규 정책자금 프로그램 안내',
-                    content: '중소벤처기업부에서 새로운 정책자금 프로그램을 발표했습니다.\n\n■ 디지털 전환 지원자금\n- 대상: 디지털 전환을 추진하는 중소기업\n- 지원규모: 기업당 최대 10억원\n- 금리: 연 2.5%\n- 상환기간: 8년 (거치 3년)\n\n■ 그린 성장 지원자금\n- 대상: 친환경 기술 보유 기업\n- 지원규모: 기업당 최대 20억원\n- 금리: 연 2.0%\n- 상환기간: 10년 (거치 4년)\n\n신청 관련 상담은 BIZEN으로 문의해 주세요.',
-                    excerpt: '중소벤처기업부에서 새로운 정책자금 프로그램을 발표했습니다. 디지털 전환 지원자금, 그린 성장 지원자금...',
-                    category: '공지',
+                    title: '신용보증기금 2025년 보증 한도 확대 예정',
+                    content: '신용보증기금이 2025년 보증 한도 확대를 예고했습니다.\n\n■ 주요 변경 사항\n- 일반보증 한도: 30억원 → 50억원\n- 혁신성장기업 한도: 50억원 → 70억원\n- 수출기업 우대 보증 신설\n\n■ 적용 시기\n- 2025년 1월 1일부터 적용\n\n보증 한도가 확대되면 더 많은 기업이 정책자금을 활용할 수 있게 됩니다. 상담을 원하시면 은인자금파트너스로 문의해 주세요.',
+                    excerpt: '신용보증기금이 2025년 보증 한도 확대를 예고했습니다. 일반보증, 혁신성장기업 한도...',
+                    category: '정보',
                     thumbnail: null,
-                    date: '2024-05-20',
-                    views: 1823
+                    date: '2024-11-20',
+                    views: 1345
                 },
                 {
                     id: '6',
-                    title: '제조업체 B사, 설비투자 자금 10억 확보',
-                    content: '경기도 소재 제조업체 B사가 BIZEN의 컨설팅을 통해 설비투자 자금 10억원을 확보했습니다.\n\nB사는 자동차 부품을 생산하는 중소기업으로, 스마트팩토리 도입을 위한 자금이 필요했습니다. BIZEN은 B사의 기술력과 성장 가능성을 분석하여 최적의 정책자금을 매칭했고, 결과적으로 신용보증기금의 스마트제조 혁신보증을 통해 10억원을 확보할 수 있었습니다.',
-                    excerpt: '경기도 소재 제조업체 B사가 BIZEN의 컨설팅을 통해 설비투자 자금 10억원을 확보했습니다...',
-                    category: '성공사례',
+                    title: 'IT서비스업 E사, 운영자금 2억 5천 확보',
+                    content: '서울 소재 IT서비스업체 E사가 은인자금파트너스의 컨설팅으로 운영자금 2억 5천만원을 확보했습니다.\n\nE사는 창업 3년차 기업으로 매출은 성장하고 있었지만 인건비 부담으로 자금 여력이 부족했습니다. 은인자금파트너스는 E사의 성장성을 어필하는 사업계획서를 작성하고, 서울신용보증재단의 청년창업기업 보증을 통해 자금을 확보할 수 있도록 지원했습니다.',
+                    excerpt: '서울 소재 IT서비스업체 E사가 은인자금파트너스의 컨설팅으로 운영자금 2억 5천만원을 확보했습니다...',
+                    category: '사례',
                     thumbnail: null,
-                    date: '2024-05-15',
-                    views: 567
+                    date: '2024-11-15',
+                    views: 623
                 }
             ];
             renderPosts();

@@ -1,5 +1,5 @@
 <!-- ================================================
-   BIZEN CTA 섹션 - 정책자금 상담 신청
+   은인자금파트너스 CTA 섹션 - 정책자금 상담 신청
    ================================================ -->
 
 <!-- CTA 섹션 -->
@@ -7,8 +7,8 @@
     <div class="cta-bg-effect"></div>
     <div class="container cta-container">
         <div class="cta-content">
-            <h2 class="cta-title">지금 바로 <span class="cta-highlight">전문 심사관 진단</span>을<br class="mobile-br"> 시작하세요</h2>
-            <p class="cta-desc">95% 승인률의 노하우,<br class="mobile-br"> BIZEN 파트너스와 함께하세요</p>
+            <h2 class="cta-title">무료 기업 진단으로 <span class="cta-highlight">정책자금 가능성</span>을 확인하세요</h2>
+            <p class="cta-desc">검증된 96% 승인률,<br class="mobile-br"> 은인자금파트너스가 함께합니다</p>
 
             <div class="cta-buttons">
                 <a href="process.html" class="cta-btn cta-btn-primary">
@@ -16,13 +16,13 @@
                         <path d="M9 12l2 2 4-4"/>
                         <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.12 0 4.07.74 5.61 1.98"/>
                     </svg>
-                    정책자금 더알아보기
+                    진행절차 살펴보기
                 </a>
-                <a href="tel:1668-3166" class="cta-btn cta-btn-secondary">
+                <a href="tel:010-6660-5118" class="cta-btn cta-btn-secondary">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
                     </svg>
-                    즉시 전화상담
+                    바로 전화 문의
                 </a>
             </div>
 
@@ -31,7 +31,7 @@
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
                 <span>정책자금 승인률</span>
-                <span class="cta-badge-rate">95%</span>
+                <span class="cta-badge-rate"><span class="counter" data-target="96">0</span>%</span>
             </div>
         </div>
 
@@ -130,4 +130,40 @@ function scrollToContactForm(event) {
         }
     }
 }
+
+// CTA 섹션 카운터 애니메이션
+(function() {
+    const counters = document.querySelectorAll('.cta-section .counter');
+    const speed = 1500;
+
+    const startCounting = (counter) => {
+        const target = parseFloat(counter.getAttribute('data-target'));
+        const increment = target / (speed / 16);
+        let current = 0;
+
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                counter.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target;
+            }
+        };
+        updateCounter();
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                if (counter.textContent === '0') {
+                    startCounting(counter);
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => observer.observe(counter));
+})();
 </script>
