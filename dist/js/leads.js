@@ -1,9 +1,8 @@
 /* ================================================
    은인자금파트너스 접수내역 JavaScript
    Airtable 연동 버전
+   WORKER_URL은 admin-auth.js에서 정의됨
    ================================================ */
-
-const WORKER_URL = 'https://euninbiz.swdoor15.workers.dev';
 
 // 전역 변수
 let allLeads = [];
