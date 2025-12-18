@@ -6,11 +6,13 @@
 // URL: https://euninbiz.swdoor15.workers.dev/
 // ================================================
 
-const GA4_PROPERTY_ID = 'TO_BE_SET';
-const SERVICE_ACCOUNT_EMAIL = 'TO_BE_SET';
+// GA4 설정은 Cloudflare 환경변수에서 로드 (env.GA4_PROPERTY_ID, env.GA4_SERVICE_ACCOUNT_EMAIL)
 
 export default {
   async fetch(request, env) {
+    // GA4 설정
+    const GA4_PROPERTY_ID = env.GA4_PROPERTY_ID;
+    const SERVICE_ACCOUNT_EMAIL = env.GA4_SERVICE_ACCOUNT_EMAIL;
     // CORS 헤더
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
@@ -620,44 +622,55 @@ async function handleAnalytics(request, env, corsHeaders, path, url) {
 
   try {
     const privateKey = env.GA4_PRIVATE_KEY;
-    if (!privateKey) {
-      return new Response(JSON.stringify({ error: 'GA4_PRIVATE_KEY not configured' }), {
+    const propertyId = env.GA4_PROPERTY_ID;
+    const serviceAccountEmail = env.GA4_SERVICE_ACCOUNT_EMAIL;
+
+    if (!privateKey || !propertyId || !serviceAccountEmail) {
+      return new Response(JSON.stringify({
+        error: 'GA4 not configured',
+        missing: {
+          GA4_PRIVATE_KEY: !privateKey,
+          GA4_PROPERTY_ID: !propertyId,
+          GA4_SERVICE_ACCOUNT_EMAIL: !serviceAccountEmail
+        }
+      }), {
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
+    const ga4Config = { privateKey, propertyId, serviceAccountEmail };
     const period = url.searchParams.get('period') || 'daily';
-    const accessToken = await getGA4AccessToken(privateKey);
+    const accessToken = await getGA4AccessToken(ga4Config);
 
     let data;
     switch (path) {
       case '/analytics/overview':
-        data = await getGA4Overview(accessToken, period);
+        data = await getGA4Overview(accessToken, period, ga4Config);
         break;
       case '/analytics/traffic':
-        data = await getGA4TrafficSources(accessToken, period);
+        data = await getGA4TrafficSources(accessToken, period, ga4Config);
         break;
       case '/analytics/pages':
-        data = await getGA4TopPages(accessToken, period);
+        data = await getGA4TopPages(accessToken, period, ga4Config);
         break;
       case '/analytics/devices':
-        data = await getGA4Devices(accessToken, period);
+        data = await getGA4Devices(accessToken, period, ga4Config);
         break;
       case '/analytics/geography':
-        data = await getGA4Geography(accessToken, period);
+        data = await getGA4Geography(accessToken, period, ga4Config);
         break;
       case '/analytics/trend':
-        data = await getGA4DailyTrend(accessToken, period);
+        data = await getGA4DailyTrend(accessToken, period, ga4Config);
         break;
       case '/analytics/all':
         const [overview, traffic, pages, devices, geography, trend] = await Promise.all([
-          getGA4Overview(accessToken, period),
-          getGA4TrafficSources(accessToken, period),
-          getGA4TopPages(accessToken, period),
-          getGA4Devices(accessToken, period),
-          getGA4Geography(accessToken, period),
-          getGA4DailyTrend(accessToken, period)
+          getGA4Overview(accessToken, period, ga4Config),
+          getGA4TrafficSources(accessToken, period, ga4Config),
+          getGA4TopPages(accessToken, period, ga4Config),
+          getGA4Devices(accessToken, period, ga4Config),
+          getGA4Geography(accessToken, period, ga4Config),
+          getGA4DailyTrend(accessToken, period, ga4Config)
         ]);
         data = { overview, traffic, pages, devices, geography, trend };
         break;
@@ -686,11 +699,11 @@ function base64urlEncode(str) {
   return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
 }
 
-async function createGA4JWT(privateKey) {
+async function createGA4JWT(ga4Config) {
   const header = { alg: 'RS256', typ: 'JWT' };
   const now = Math.floor(Date.now() / 1000);
   const payload = {
-    iss: SERVICE_ACCOUNT_EMAIL,
+    iss: ga4Config.serviceAccountEmail,
     scope: 'https://www.googleapis.com/auth/analytics.readonly',
     aud: 'https://oauth2.googleapis.com/token',
     iat: now,
@@ -701,7 +714,7 @@ async function createGA4JWT(privateKey) {
   const encodedPayload = base64urlEncode(JSON.stringify(payload));
   const signatureInput = `${encodedHeader}.${encodedPayload}`;
 
-  const pemContents = privateKey
+  const pemContents = ga4Config.privateKey
     .replace('-----BEGIN PRIVATE KEY-----', '')
     .replace('-----END PRIVATE KEY-----', '')
     .replace(/\\n/g, '')
@@ -723,8 +736,8 @@ async function createGA4JWT(privateKey) {
   return `${signatureInput}.${encodedSignature}`;
 }
 
-async function getGA4AccessToken(privateKey) {
-  const jwt = await createGA4JWT(privateKey);
+async function getGA4AccessToken(ga4Config) {
+  const jwt = await createGA4JWT(ga4Config);
   const response = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -737,9 +750,9 @@ async function getGA4AccessToken(privateKey) {
   return data.access_token;
 }
 
-async function callGA4API(accessToken, requestBody) {
+async function callGA4API(accessToken, requestBody, ga4Config) {
   const response = await fetch(
-    `https://analyticsdata.googleapis.com/v1beta/properties/${GA4_PROPERTY_ID}:runReport`,
+    `https://analyticsdata.googleapis.com/v1beta/properties/${ga4Config.propertyId}:runReport`,
     {
       method: 'POST',
       headers: {
@@ -780,7 +793,7 @@ function formatDuration(seconds) {
   return `${mins}분 ${secs}초`;
 }
 
-async function getGA4Overview(accessToken, period) {
+async function getGA4Overview(accessToken, period, ga4Config) {
   const { startDate, endDate } = getGA4DateRange(period);
 
   const daysDiff = Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)) + 1;
@@ -798,7 +811,7 @@ async function getGA4Overview(accessToken, period) {
         { name: 'averageSessionDuration' },
         { name: 'bounceRate' }
       ]
-    }),
+    }, ga4Config),
     callGA4API(accessToken, {
       dateRanges: [{
         startDate: prevStart.toISOString().split('T')[0],
@@ -810,7 +823,7 @@ async function getGA4Overview(accessToken, period) {
         { name: 'averageSessionDuration' },
         { name: 'bounceRate' }
       ]
-    })
+    }, ga4Config)
   ]);
 
   const current = currentData.rows?.[0]?.metricValues || [];
@@ -835,7 +848,7 @@ async function getGA4Overview(accessToken, period) {
   };
 }
 
-async function getGA4TrafficSources(accessToken, period) {
+async function getGA4TrafficSources(accessToken, period, ga4Config) {
   const { startDate, endDate } = getGA4DateRange(period);
   const data = await callGA4API(accessToken, {
     dateRanges: [{ startDate, endDate }],
@@ -843,7 +856,7 @@ async function getGA4TrafficSources(accessToken, period) {
     metrics: [{ name: 'sessions' }],
     orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
     limit: 10
-  });
+  }, ga4Config);
 
   const total = data.rows?.reduce((sum, row) => sum + parseInt(row.metricValues[0].value), 0) || 1;
   const sources = data.rows?.map(row => ({
@@ -855,7 +868,7 @@ async function getGA4TrafficSources(accessToken, period) {
   return { period: { startDate, endDate }, sources, total };
 }
 
-async function getGA4TopPages(accessToken, period) {
+async function getGA4TopPages(accessToken, period, ga4Config) {
   const { startDate, endDate } = getGA4DateRange(period);
   const data = await callGA4API(accessToken, {
     dateRanges: [{ startDate, endDate }],
@@ -863,7 +876,7 @@ async function getGA4TopPages(accessToken, period) {
     metrics: [{ name: 'screenPageViews' }],
     orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
     limit: 10
-  });
+  }, ga4Config);
 
   const pages = data.rows?.map(row => ({
     path: row.dimensionValues[0].value,
@@ -873,14 +886,14 @@ async function getGA4TopPages(accessToken, period) {
   return { period: { startDate, endDate }, pages };
 }
 
-async function getGA4Devices(accessToken, period) {
+async function getGA4Devices(accessToken, period, ga4Config) {
   const { startDate, endDate } = getGA4DateRange(period);
   const data = await callGA4API(accessToken, {
     dateRanges: [{ startDate, endDate }],
     dimensions: [{ name: 'deviceCategory' }],
     metrics: [{ name: 'activeUsers' }],
     orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }]
-  });
+  }, ga4Config);
 
   const total = data.rows?.reduce((sum, row) => sum + parseInt(row.metricValues[0].value), 0) || 1;
   const devices = data.rows?.map(row => ({
@@ -892,7 +905,7 @@ async function getGA4Devices(accessToken, period) {
   return { period: { startDate, endDate }, devices, total };
 }
 
-async function getGA4Geography(accessToken, period) {
+async function getGA4Geography(accessToken, period, ga4Config) {
   const { startDate, endDate } = getGA4DateRange(period);
   const data = await callGA4API(accessToken, {
     dateRanges: [{ startDate, endDate }],
@@ -900,7 +913,7 @@ async function getGA4Geography(accessToken, period) {
     metrics: [{ name: 'activeUsers' }],
     orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
     limit: 10
-  });
+  }, ga4Config);
 
   const regions = data.rows?.map(row => ({
     city: row.dimensionValues[0].value,
@@ -910,14 +923,14 @@ async function getGA4Geography(accessToken, period) {
   return { period: { startDate, endDate }, regions };
 }
 
-async function getGA4DailyTrend(accessToken, period) {
+async function getGA4DailyTrend(accessToken, period, ga4Config) {
   const { startDate, endDate } = getGA4DateRange(period);
   const data = await callGA4API(accessToken, {
     dateRanges: [{ startDate, endDate }],
     dimensions: [{ name: 'date' }],
     metrics: [{ name: 'activeUsers' }, { name: 'screenPageViews' }],
     orderBys: [{ dimension: { dimensionName: 'date' }, desc: false }]
-  });
+  }, ga4Config);
 
   const trend = data.rows?.map(row => ({
     date: row.dimensionValues[0].value,
