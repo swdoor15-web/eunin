@@ -295,17 +295,35 @@ function callCustomer() {
   window.location.href = 'tel:' + phone.replace(/-/g, '');
 }
 
-// 삭제 (Airtable에서는 실제 삭제하지 않고 UI에서만 제거)
-function deleteLead(recordId) {
-  if (!confirm('정말 삭제하시겠습니까?')) return;
+// 삭제 (Airtable에서도 삭제)
+async function deleteLead(recordId) {
+  if (!confirm('정말 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.')) return;
 
-  // UI에서 제거
-  allLeads = allLeads.filter(l => l.id !== recordId);
-  filteredLeads = filteredLeads.filter(l => l.id !== recordId);
-  renderLeads();
-  updateTotalCount();
+  try {
+    const response = await fetch(`${WORKER_URL}/leads`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ recordId: recordId })
+    });
 
-  // TODO: 실제 Airtable 삭제 API 호출이 필요하면 추가
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || '삭제 실패');
+    }
+
+    // UI에서 제거
+    allLeads = allLeads.filter(l => l.id !== recordId);
+    filteredLeads = filteredLeads.filter(l => l.id !== recordId);
+    renderLeads();
+    updateTotalCount();
+
+    alert('삭제되었습니다.');
+
+  } catch (error) {
+    console.error('Delete error:', error);
+    alert('삭제 중 오류가 발생했습니다: ' + error.message);
+  }
 }
 
 // 필터 변경
