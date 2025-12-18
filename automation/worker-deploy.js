@@ -228,7 +228,7 @@ export default {
 └ 자금종류: ${fundTypes}
 
 ${fields['문의사항'] ? `<b>💬 문의내용</b>\n${fields['문의사항']}\n` : ''}
-📊 Airtable에서 확인`;
+📊 <a href="https://airtable.com/app45R8nx0dcCQK6D/shrKtXtHLLFankTJG">Airtable에서 확인</a>`;
 
         const telegramResponse = await fetch(
           `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
