@@ -147,6 +147,9 @@ export default {
         console.error('❌ Customer email exception:', error.message);
       }
 
+      // Rate limit 대응: 500ms 딜레이
+      await new Promise(resolve => setTimeout(resolve, 500));
+
       // ================================================
       // 3. Resend 이메일 발송 (담당자들에게 각각 발송)
       // ================================================
@@ -181,6 +184,8 @@ export default {
               staffResults.push({ email, success: false, error });
               console.error('❌ Staff email error for', email, ':', error);
             }
+            // Rate limit 대응: 담당자 이메일 사이 500ms 딜레이
+            await new Promise(resolve => setTimeout(resolve, 500));
           } catch (err) {
             staffResults.push({ email, success: false, error: err.message });
             console.error('❌ Staff email exception for', email, ':', err.message);

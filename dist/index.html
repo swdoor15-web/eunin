@@ -3119,7 +3119,7 @@
                 '이메일': form.email.value,
                 '지역': form.region.value,
                 '통화가능시간': form.consultTime.value,
-                '지원받고 싶은 자금종류': Array.from(fundTypes).map(cb => cb.value)
+                '지원받고 싶은 자금종류': Array.from(fundTypes).map(cb => cb.value).join(', ')
             };
 
             // 선택 필드 추가 (값이 있을 때만)
@@ -3128,9 +3128,6 @@
             if (form.revenue.value) airtableFields['직전년도매출'] = form.revenue.value;
             if (form.amount.value) airtableFields['필요자금규모'] = form.amount.value;
             if (form.message.value) airtableFields['문의사항'] = form.message.value;
-
-            // 체크박스는 true만 전송
-            if (form.querySelector('input[name="privacy"]').checked) airtableFields['개인정보 수집및이용동의'] = true;
 
             // Cloudflare Workers로 데이터 전송
             const response = await fetch(WORKER_URL, {
