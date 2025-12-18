@@ -1,9 +1,9 @@
 /* ================================================
-   BIZEN 접수내역 JavaScript
+   은인자금파트너스 접수내역 JavaScript
    Airtable 연동 버전
    ================================================ */
 
-const WORKER_URL = 'https://bizen-homepage.weandbiz.workers.dev';
+const WORKER_URL = 'https://euninbiz.swdoor15.workers.dev';
 
 // 전역 변수
 let allLeads = [];

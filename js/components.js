@@ -1,5 +1,5 @@
 /* ================================================
-   BIZEN 컴포넌트 로더
+   은인자금파트너스 컴포넌트 로더
    공통 컴포넌트를 동적으로 로드하여 코드 중복 제거
    ================================================ */
 
@@ -7,7 +7,7 @@
 function loadSidebar(currentPage) {
   const sidebarHTML = `
     <div class="sidebar-header">
-      <h1 class="logo">BIZEN</h1>
+      <h1 class="logo">은인자금파트너스</h1>
       <span class="logo-sub">관리자</span>
     </div>
 
@@ -137,8 +137,8 @@ function closeSidebar() {
 // 로그아웃 처리
 function handleLogout() {
   if (confirm('로그아웃 하시겠습니까?')) {
-    alert('로그아웃 되었습니다.');
-    // window.location.href = '/login.html';
+    localStorage.removeItem('eunin_admin_auth');
+    window.location.reload();
   }
 }
 

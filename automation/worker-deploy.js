@@ -565,7 +565,7 @@ async function handleBoard(request, env, corsHeaders) {
 // ================================================
 // /auth 핸들러 - 관리자 인증
 // ================================================
-const ADMIN_PASSWORD = 'euninbiz2024!'; // 관리자 비밀번호
+const ADMIN_PASSWORD = 'love1025!!'; // 관리자 비밀번호
 
 async function handleAuth(request, env, corsHeaders) {
   if (request.method !== 'POST') {

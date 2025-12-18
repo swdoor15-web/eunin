@@ -84,6 +84,14 @@ filesToCopy.forEach(folder => {
     }
 });
 
+// admin 폴더 복사 (src/admin -> dist/admin)
+const adminSrcFolder = path.join(SRC_DIR, 'admin');
+const adminDestFolder = path.join(DIST_DIR, 'admin');
+if (fs.existsSync(adminSrcFolder)) {
+    copyFolderSync(adminSrcFolder, adminDestFolder);
+    console.log(`✓ 폴더 복사됨: admin/`);
+}
+
 function copyFolderSync(src, dest) {
     if (!fs.existsSync(dest)) {
         fs.mkdirSync(dest, { recursive: true });
