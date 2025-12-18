@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloudflare Worker 환경변수 설정 가이드 - 은인자금파트너스</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .copy-btn:active { transform: scale(0.95); }
+        .step-card { transition: all 0.2s; }
+        .step-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .check-item.done { background: #DEF7EC; border-color: #10B981; }
+        .check-item.done .check-icon { color: #10B981; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white py-8 px-4">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-2xl font-bold mb-2">Cloudflare Worker 환경변수 설정</h1>
+            <p class="opacity-90">은인자금파트너스 (euninbiz.swdoor15.workers.dev)</p>
+        </div>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- 체크리스트 -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+            <h2 class="text-lg font-bold text-gray-800 mb-4">설정 체크리스트</h2>
+            <div class="space-y-3">
+                <div class="check-item flex items-center p-3 border rounded-lg cursor-pointer" onclick="toggleCheck(this)" data-key="airtable">
+                    <span class="check-icon w-6 h-6 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center text-sm">✓</span>
+                    <span>Airtable 설정 (Base ID, Table Name, Token)</span>
+                </div>
+                <div class="check-item flex items-center p-3 border rounded-lg cursor-pointer" onclick="toggleCheck(this)" data-key="resend">
+                    <span class="check-icon w-6 h-6 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center text-sm">✓</span>
+                    <span>Resend 이메일 API Key</span>
+                </div>
+                <div class="check-item flex items-center p-3 border rounded-lg cursor-pointer" onclick="toggleCheck(this)" data-key="telegram">
+                    <span class="check-icon w-6 h-6 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center text-sm">✓</span>
+                    <span>Telegram Bot 설정</span>
+                </div>
+                <div class="check-item flex items-center p-3 border rounded-lg cursor-pointer" onclick="toggleCheck(this)" data-key="ga4">
+                    <span class="check-icon w-6 h-6 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center text-sm">✓</span>
+                    <span>GA4 Analytics (선택)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Cloudflare 접속 -->
+        <div class="step-card bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex items-center mb-4">
+                <span class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold mr-3">1</span>
+                <h3 class="text-lg font-bold text-gray-800">Cloudflare 대시보드 접속</h3>
+            </div>
+            <ol class="list-decimal list-inside space-y-2 text-gray-600 ml-11">
+                <li><a href="https://dash.cloudflare.com" target="_blank" class="text-blue-600 hover:underline">dash.cloudflare.com</a> 접속</li>
+                <li>왼쪽 메뉴에서 <strong>Workers & Pages</strong> 클릭</li>
+                <li><strong>euninbiz</strong> Worker 선택</li>
+                <li>상단 탭에서 <strong>Settings</strong> 클릭</li>
+                <li>왼쪽 메뉴에서 <strong>Variables and Secrets</strong> 클릭</li>
+            </ol>
+        </div>
+
+        <!-- Step 2: Airtable -->
+        <div class="step-card bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex items-center mb-4">
+                <span class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold mr-3">2</span>
+                <h3 class="text-lg font-bold text-gray-800">Airtable 환경변수</h3>
+            </div>
+
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                <p class="text-yellow-800 text-sm">
+                    <strong>Airtable Base 생성이 필요합니다.</strong><br>
+                    <a href="https://airtable.com" target="_blank" class="text-blue-600 hover:underline">airtable.com</a>에서 새 Base를 생성하고 아래 필드가 있는 테이블을 만드세요.
+                </p>
+            </div>
+
+            <div class="space-y-4 ml-11">
+                <!-- AIRTABLE_BASE_ID -->
+                <div class="border rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">AIRTABLE_BASE_ID</code>
+                        <span class="text-xs text-red-500 font-medium">필수</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">Airtable Base URL에서 확인 (app으로 시작)</p>
+                    <div class="flex gap-2">
+                        <input type="text" id="airtable-base-id" placeholder="appXXXXXXXXXXXXXX"
+                               class="flex-1 border rounded px-3 py-2 text-sm font-mono">
+                        <button onclick="copyValue('airtable-base-id')"
+                                class="copy-btn bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded text-sm">
+                            복사
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AIRTABLE_TABLE_NAME -->
+                <div class="border rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">AIRTABLE_TABLE_NAME</code>
+                        <span class="text-xs text-red-500 font-medium">필수</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">상담신청 데이터를 저장할 테이블 이름</p>
+                    <div class="flex gap-2">
+                        <input type="text" id="airtable-table-name" value="상담신청"
+                               class="flex-1 border rounded px-3 py-2 text-sm font-mono">
+                        <button onclick="copyValue('airtable-table-name')"
+                                class="copy-btn bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded text-sm">
+                            복사
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AIRTABLE_TOKEN -->
+                <div class="border rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">AIRTABLE_TOKEN</code>
+                        <span class="text-xs text-red-500 font-medium">필수 (Secret)</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">
+                        <a href="https://airtable.com/create/tokens" target="_blank" class="text-blue-600 hover:underline">Personal Access Token 생성</a>
+                        (scopes: data.records:read, data.records:write)
+                    </p>
+                    <div class="flex gap-2">
+                        <input type="password" id="airtable-token" placeholder="patXXXXXXXXXXXXXX"
+                               class="flex-1 border rounded px-3 py-2 text-sm font-mono">
+                        <button onclick="copyValue('airtable-token')"
+                                class="copy-btn bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded text-sm">
+                            복사
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Airtable 테이블 필드 -->
+            <div class="mt-6 ml-11">
+                <h4 class="font-semibold text-gray-700 mb-2">필요한 테이블 필드:</h4>
+                <div class="bg-gray-50 rounded-lg p-4 text-sm font-mono">
+                    <div class="grid grid-cols-2 gap-2">
+                        <span>기업명 (Single line text)</span>
+                        <span>대표자명 (Single line text)</span>
+                        <span>연락처 (Phone)</span>
+                        <span>이메일 (Email)</span>
+                        <span>사업자번호 (Single line text)</span>
+                        <span>업종 (Single line text)</span>
+                        <span>지역 (Single select)</span>
+                        <span>설립연도 (Single select)</span>
+                        <span>직전년도매출 (Single select)</span>
+                        <span>필요자금규모 (Single select)</span>
+                        <span>지원받고 싶은 자금종류 (Multiple select)</span>
+                        <span>통화가능시간 (Single select)</span>
+                        <span>문의사항 (Long text)</span>
+                        <span>상태 (Single select)</span>
+                        <span>메모 (Long text)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Resend -->
+        <div class="step-card bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex items-center mb-4">
+                <span class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold mr-3">3</span>
+                <h3 class="text-lg font-bold text-gray-800">Resend 이메일 API</h3>
+            </div>
+
+            <div class="space-y-4 ml-11">
+                <div class="border rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">RESEND_API_KEY</code>
+                        <span class="text-xs text-red-500 font-medium">필수 (Secret)</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">
+                        <a href="https://resend.com/api-keys" target="_blank" class="text-blue-600 hover:underline">Resend API Key 생성</a>
+                    </p>
+                    <div class="flex gap-2">
+                        <input type="password" id="resend-key" placeholder="re_XXXXXXXXXXXX"
+                               class="flex-1 border rounded px-3 py-2 text-sm font-mono">
+                        <button onclick="copyValue('resend-key')"
+                                class="copy-btn bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded text-sm">
+                            복사
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Telegram -->
+        <div class="step-card bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex items-center mb-4">
+                <span class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold mr-3">4</span>
+                <h3 class="text-lg font-bold text-gray-800">Telegram 알림</h3>
+            </div>
+
+            <div class="space-y-4 ml-11">
+                <!-- TELEGRAM_BOT_TOKEN -->
+                <div class="border rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">TELEGRAM_BOT_TOKEN</code>
+                        <span class="text-xs text-red-500 font-medium">필수 (Secret)</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">@BotFather에서 생성한 Bot Token</p>
+                    <div class="flex gap-2">
+                        <input type="password" id="telegram-token" placeholder="123456789:ABCDEFGH..."
+                               class="flex-1 border rounded px-3 py-2 text-sm font-mono">
+                        <button onclick="copyValue('telegram-token')"
+                                class="copy-btn bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded text-sm">
+                            복사
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TELEGRAM_CHAT_ID -->
+                <div class="border rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">TELEGRAM_CHAT_ID</code>
+                        <span class="text-xs text-red-500 font-medium">필수</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">알림 받을 채팅/그룹 ID (airtable.txt 참조: -1003635343656)</p>
+                    <div class="flex gap-2">
+                        <input type="text" id="telegram-chat" value="-1003635343656"
+                               class="flex-1 border rounded px-3 py-2 text-sm font-mono">
+                        <button onclick="copyValue('telegram-chat')"
+                                class="copy-btn bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded text-sm">
+                            복사
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: GA4 (선택) -->
+        <div class="step-card bg-white rounded-xl shadow-sm p-6 mb-6">
+            <div class="flex items-center mb-4">
+                <span class="w-8 h-8 bg-gray-400 text-white rounded-full flex items-center justify-center font-bold mr-3">5</span>
+                <h3 class="text-lg font-bold text-gray-800">GA4 Analytics (선택)</h3>
+                <span class="ml-2 text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded">선택사항</span>
+            </div>
+
+            <div class="space-y-4 ml-11">
+                <div class="border rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <code class="bg-gray-100 px-2 py-1 rounded text-sm font-mono">GA4_PRIVATE_KEY</code>
+                        <span class="text-xs text-gray-500 font-medium">선택 (Secret)</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-2">
+                        Google Cloud Service Account의 Private Key<br>
+                        (JSON 키 파일의 private_key 값)
+                    </p>
+                    <textarea id="ga4-key" placeholder="-----BEGIN PRIVATE KEY-----\n..."
+                              class="w-full border rounded px-3 py-2 text-sm font-mono h-20"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- 환경변수 추가 방법 -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-6">
+            <h3 class="font-bold text-blue-800 mb-3">Cloudflare에서 환경변수 추가하는 방법</h3>
+            <ol class="list-decimal list-inside space-y-2 text-blue-700 text-sm">
+                <li>Settings > Variables and Secrets 페이지에서</li>
+                <li><strong>"+ Add"</strong> 버튼 클릭</li>
+                <li>Variable name에 변수명 입력 (예: AIRTABLE_BASE_ID)</li>
+                <li>Value에 값 입력</li>
+                <li>민감한 정보는 <strong>"Encrypt"</strong> 체크 (Secret으로 저장)</li>
+                <li><strong>"Deploy"</strong> 버튼으로 저장</li>
+            </ol>
+        </div>
+
+        <!-- 테스트 -->
+        <div class="bg-green-50 border border-green-200 rounded-xl p-6">
+            <h3 class="font-bold text-green-800 mb-3">설정 완료 후 테스트</h3>
+            <p class="text-green-700 text-sm mb-4">환경변수 설정 후 아래 API를 호출하여 테스트하세요:</p>
+
+            <div class="bg-white rounded-lg p-4 mb-4">
+                <p class="text-sm text-gray-600 mb-2">Leads API 테스트:</p>
+                <code class="block bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+                    curl https://euninbiz.swdoor15.workers.dev/leads
+                </code>
+            </div>
+
+            <div class="bg-white rounded-lg p-4">
+                <p class="text-sm text-gray-600 mb-2">인증 API 테스트:</p>
+                <code class="block bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+                    curl -X POST https://euninbiz.swdoor15.workers.dev/auth \<br>
+                    &nbsp;&nbsp;-H "Content-Type: application/json" \<br>
+                    &nbsp;&nbsp;-d '{"password":"love1025!!"}'
+                </code>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-gray-500 text-sm mt-8 py-4 border-t">
+            <p>은인자금파트너스 | Worker URL: euninbiz.swdoor15.workers.dev</p>
+            <p class="mt-1">작성일: 2025-12-18</p>
+        </div>
+    </div>
+
+    <script>
+        function copyValue(inputId) {
+            const input = document.getElementById(inputId);
+            input.select();
+            document.execCommand('copy');
+
+            const btn = input.nextElementSibling;
+            const originalText = btn.textContent;
+            btn.textContent = '복사됨!';
+            btn.classList.add('bg-green-100');
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.classList.remove('bg-green-100');
+            }, 1500);
+        }
+
+        function toggleCheck(el) {
+            el.classList.toggle('done');
+            saveProgress();
+        }
+
+        function saveProgress() {
+            const checks = {};
+            document.querySelectorAll('.check-item').forEach(item => {
+                checks[item.dataset.key] = item.classList.contains('done');
+            });
+            localStorage.setItem('euninbiz-cf-setup', JSON.stringify(checks));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('euninbiz-cf-setup');
+            if (saved) {
+                const checks = JSON.parse(saved);
+                Object.keys(checks).forEach(key => {
+                    if (checks[key]) {
+                        document.querySelector(`.check-item[data-key="${key}"]`)?.classList.add('done');
+                    }
+                });
+            }
+        }
+
+        loadProgress();
+    </script>
+</body>
+</html>
