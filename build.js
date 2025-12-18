@@ -47,6 +47,17 @@ pages.forEach(pageName => {
 
 console.log('\n✅ 빌드 완료!');
 
+// SEO 파일 복사 (sitemap.xml, robots.txt)
+const seoFiles = ['sitemap.xml', 'robots.txt'];
+seoFiles.forEach(file => {
+    const src = path.join(SRC_DIR, file);
+    const dest = path.join(DIST_DIR, file);
+    if (fs.existsSync(src)) {
+        fs.copyFileSync(src, dest);
+        console.log(`✓ SEO 파일 복사됨: ${file}`);
+    }
+});
+
 // CSS, JS, 이미지 파일도 dist로 복사
 const filesToCopy = ['css', 'js', 'images'];
 const rootFiles = fs.readdirSync(__dirname);
