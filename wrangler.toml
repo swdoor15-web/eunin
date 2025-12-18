@@ -1,3 +1,11 @@
+# ================================================
+# ⚠️ 호스팅 구조 (중요)
+# ================================================
+# - 정적 사이트: Vercel (vercel.json 참고)
+# - API 서버: Cloudflare Workers (이 파일)
+# - Cloudflare Pages: 사용 안함
+# ================================================
+
 name = "euninbiz-homepage"
 main = "automation/worker-deploy.js"
 compatibility_date = "2024-01-01"
