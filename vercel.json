@@ -6,6 +6,12 @@
   "public": true,
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/admin/leads", "destination": "/admin/leads.html" },
+    { "source": "/admin/board", "destination": "/admin/board.html" },
+    { "source": "/admin/analytics", "destination": "/admin/analytics.html" },
+    { "source": "/admin/settings", "destination": "/admin/settings.html" }
+  ],
   "headers": [
     {
       "source": "/robots.txt",
