@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>OG Image - 은인자금파트너스</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a1628;
+        }
+
+        .og-container {
+            width: 1200px;
+            height: 630px;
+            background: linear-gradient(135deg, #0a1628 0%, #0f2847 50%, #1B4332 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+        }
+
+        /* 배경 패턴 */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.05;
+            background-image:
+                radial-gradient(circle at 20% 30%, #52B788 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, #52B788 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* 글로우 효과 */
+        .glow-1 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(82, 183, 136, 0.3) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .glow-2 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(116, 198, 157, 0.2) 0%, transparent 70%);
+            bottom: -50px;
+            left: -50px;
+            border-radius: 50%;
+        }
+
+        /* 상단 라벨 */
+        .top-label {
+            position: absolute;
+            top: 40px;
+            left: 60px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .label-badge {
+            background: linear-gradient(135deg, #52B788, #40916C);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* 로고 영역 */
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 40px;
+            z-index: 10;
+        }
+
+        .logo-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 30px rgba(82, 183, 136, 0.5));
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: 56px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 40px rgba(82, 183, 136, 0.5);
+        }
+
+        .logo-sub {
+            font-size: 24px;
+            font-weight: 500;
+            color: #74C69D;
+            letter-spacing: 4px;
+            margin-top: 4px;
+        }
+
+        /* 슬로건 */
+        .slogan {
+            font-size: 28px;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 50px;
+            z-index: 10;
+            line-height: 1.5;
+        }
+
+        .slogan-highlight {
+            color: #74C69D;
+            font-weight: 700;
+        }
+
+        /* 키워드 태그 */
+        .keywords {
+            display: flex;
+            gap: 16px;
+            z-index: 10;
+        }
+
+        .keyword {
+            background: rgba(82, 183, 136, 0.15);
+            border: 1px solid rgba(82, 183, 136, 0.4);
+            color: #95D5B2;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* 하단 정보 */
+        .bottom-info {
+            position: absolute;
+            bottom: 40px;
+            left: 60px;
+            right: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 16px;
+        }
+
+        .website {
+            color: #74C69D;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* 장식 라인 */
+        .deco-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #52B788, #74C69D, #95D5B2, #74C69D, #52B788);
+        }
+    </style>
+</head>
+<body>
+    <div class="og-container">
+        <!-- 배경 효과 -->
+        <div class="bg-pattern"></div>
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <!-- 상단 라벨 -->
+        <div class="top-label">
+            <span class="label-badge">POLICY FUND CONSULTING</span>
+        </div>
+
+        <!-- 로고 섹션 -->
+        <div class="logo-section">
+            <img src="../dist/logo.png" alt="로고" class="logo-img">
+            <div class="logo-text">
+                <span class="logo-main">은인자금파트너스</span>
+                <span class="logo-sub">EUNIN PARTNERS</span>
+            </div>
+        </div>
+
+        <!-- 슬로건 -->
+        <div class="slogan">
+            기업심사관 기반 <span class="slogan-highlight">정책자금 전문 컨설팅</span><br>
+            승인의 모든 단계에 함께합니다
+        </div>
+
+        <!-- 키워드 -->
+        <div class="keywords">
+            <span class="keyword">정책자금</span>
+            <span class="keyword">기업대출</span>
+            <span class="keyword">창업자금</span>
+            <span class="keyword">무료상담</span>
+        </div>
+
+        <!-- 하단 정보 -->
+        <div class="bottom-info">
+            <span class="contact">TEL. 010-6660-5118</span>
+            <span class="website">euninbiz.co.kr</span>
+        </div>
+
+        <!-- 장식 라인 -->
+        <div class="deco-line"></div>
+    </div>
+</body>
+</html>
