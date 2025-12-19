@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>은인자금파트너스 모바일 명함</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            width: 1080px;
+            height: 1920px;
+            overflow: hidden;
+            background: #0a1628;
+        }
+        body { font-family: 'Pretendard', sans-serif; }
+
+        .card {
+            width: 1080px;
+            height: 1920px;
+            background: linear-gradient(180deg, #0a1628 0%, #1B4332 50%, #0a1628 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 180px 80px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(82, 183, 136, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(116, 198, 157, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .top-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, #52B788, #74C69D, #52B788, transparent);
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .logo-icon {
+            width: 90px;
+            height: 90px;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 20px rgba(82, 183, 136, 0.5));
+        }
+
+        .company-name {
+            text-align: left;
+        }
+
+        .company-name-kr {
+            font-size: 46px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 4px;
+        }
+
+        .company-name-kr .highlight {
+            color: #74C69D;
+            font-weight: 800;
+            text-shadow: 0 0 30px rgba(116, 198, 157, 0.5);
+        }
+
+        .company-name-en {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 8px;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .name-section {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .name {
+            font-size: 80px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 24px;
+            margin-bottom: 28px;
+            text-shadow: 0 0 40px rgba(82, 183, 136, 0.3);
+        }
+
+        .position {
+            font-size: 32px;
+            color: #74C69D;
+            font-weight: 600;
+            letter-spacing: 10px;
+            padding: 16px 44px;
+            border: 1px solid rgba(116, 198, 157, 0.5);
+            border-radius: 40px;
+            display: inline-block;
+            background: rgba(82, 183, 136, 0.1);
+        }
+
+        .divider {
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #52B788, transparent);
+            margin: 45px 0;
+        }
+
+        .slogan-section {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .slogan {
+            font-size: 38px;
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .slogan span {
+            color: #74C69D;
+        }
+
+        .service-tags {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .service-tag {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 12px 28px;
+            background: rgba(82, 183, 136, 0.15);
+            border: 1px solid rgba(82, 183, 136, 0.4);
+            border-radius: 30px;
+            letter-spacing: 2px;
+        }
+
+        .contact-section {
+            width: 100%;
+            max-width: 680px;
+            position: relative;
+            z-index: 1;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 28px 40px 28px 140px;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(82, 183, 136, 0.15);
+            border: 1px solid rgba(82, 183, 136, 0.4);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 26px;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: #52B788;
+        }
+
+        .contact-text { flex: 1; }
+
+        .contact-label {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .contact-value {
+            font-size: 32px;
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .contact-value.small { font-size: 26px; }
+        .contact-value.xsmall { font-size: 22px; }
+
+        .partnership {
+            margin-top: auto;
+            padding-top: 50px;
+            padding-bottom: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .partnership-text {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 3px;
+        }
+
+        .partnership-text span {
+            color: #74C69D;
+            font-weight: 600;
+        }
+
+        .website {
+            margin-top: 28px;
+            font-size: 30px;
+            color: #52B788;
+            letter-spacing: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="top-accent"></div>
+
+        <div class="logo-section">
+            <div class="logo-text">
+                <div class="logo-icon">
+                    <img src="../dist/logo.png" alt="은인자금파트너스" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 20px rgba(82, 183, 136, 0.5));">
+                </div>
+                <div class="company-name">
+                    <p class="company-name-kr"><span class="highlight">은인</span>자금파트너스</p>
+                    <p class="company-name-en">EUNIN PARTNERS</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="name-section">
+            <h1 class="name">조 은 예</h1>
+            <span class="position">기업심사관</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="slogan-section">
+            <p class="slogan">기업심사관 기반<br><span>정책자금 전문 컨설팅</span></p>
+            <div class="service-tags">
+                <span class="service-tag">정책자금</span>
+                <span class="service-tag">기업대출</span>
+                <span class="service-tag">창업자금</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="contact-section">
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 1h-8C6.12 1 5 2.12 5 3.5v17C5 21.88 6.12 23 7.5 23h8c1.38 0 2.5-1.12 2.5-2.5v-17C18 2.12 16.88 1 15.5 1zm-4 21c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5-4H7V4h9v14z"/></svg>
+                </div>
+                <div class="contact-text">
+                    <p class="contact-label">Mobile</p>
+                    <p class="contact-value">010-6660-5118</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                </div>
+                <div class="contact-text">
+                    <p class="contact-label">Email</p>
+                    <p class="contact-value small">swdoor166@naver.com</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                </div>
+                <div class="contact-text">
+                    <p class="contact-label">Address</p>
+                    <p class="contact-value xsmall">경기도 안산시 단원구<br>원고잔로 6, 827호</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="partnership">
+            <p class="partnership-text"><span>JJK그룹</span> 업무협약 파트너</p>
+            <p class="website">euninbiz.co.kr</p>
+        </div>
+    </div>
+</body>
+</html>
