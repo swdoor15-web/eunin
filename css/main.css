@@ -161,6 +161,7 @@ img {
 
 .nav {
   display: flex;
+  flex-wrap: nowrap;
   gap: 28px;
   list-style: none;
   margin: 0;
@@ -232,6 +233,8 @@ img {
   box-shadow: 0 4px 12px rgba(82, 183, 136, 0.3);
   position: relative;
   overflow: hidden;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .btn-cta::before {
@@ -1536,6 +1539,27 @@ img {
     flex-direction: column;
     gap: 12px;
     align-items: center;
+  }
+}
+
+/* 중간 크기 화면 - 네비 간격 조정 */
+@media (max-width: 1200px) and (min-width: 969px) {
+  .nav {
+    gap: 16px;
+    padding-left: 100px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+
+  .btn-cta {
+    padding: 4px 18px;
+    font-size: 14px;
+  }
+
+  .logo {
+    margin-right: 50px;
   }
 }
 
