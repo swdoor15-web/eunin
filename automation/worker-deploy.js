@@ -566,6 +566,63 @@ async function handleBoard(request, env, corsHeaders) {
     }
   }
 
+  // POST: 게시글 생성
+  if (request.method === 'POST') {
+    try {
+      const BOARD_TABLE = '게시판';
+      const data = await request.json();
+
+      const fields = {
+        '제목': data.제목 || data.title || '',
+        '내용': data.내용 || data.content || '',
+        '카테고리': data.카테고리 || data.category || '공지',
+        '작성일': data.작성일 || data.date || new Date().toISOString().split('T')[0],
+        '조회수': data.조회수 || data.views || 0
+      };
+
+      // 썸네일이 있으면 Attachment 형태로 추가
+      if (data.썸네일 || data.thumbnail) {
+        fields['썸네일'] = [{ url: data.썸네일 || data.thumbnail }];
+      }
+
+      const airtableResponse = await fetch(
+        `https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/${encodeURIComponent(BOARD_TABLE)}`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${env.AIRTABLE_TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ fields })
+        }
+      );
+
+      if (!airtableResponse.ok) {
+        const error = await airtableResponse.json();
+        return new Response(JSON.stringify({ success: false, error }), {
+          status: airtableResponse.status,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      const result = await airtableResponse.json();
+      return new Response(JSON.stringify({
+        success: true,
+        id: result.id,
+        post: { id: result.id, ...result.fields }
+      }), {
+        status: 201,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+
+    } catch (error) {
+      return new Response(JSON.stringify({ success: false, error: error.message }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+  }
+
   return new Response('Method Not Allowed', { status: 405, headers: corsHeaders });
 }
 
