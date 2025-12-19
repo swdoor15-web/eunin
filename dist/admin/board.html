@@ -810,7 +810,7 @@
       showLoading(true);
 
       try {
-        const response = await fetch(`${WORKER_URL}/board/${id}`, {
+        const response = await fetch(`${WORKER_URL}/board?id=${id}`, {
           method: 'DELETE'
         });
 

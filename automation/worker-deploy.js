@@ -64,6 +64,20 @@ export default {
     }
 
     // ================================================
+    // 라우팅: /upload - R2 이미지 업로드
+    // ================================================
+    if (path === '/upload') {
+      return handleUpload(request, env, corsHeaders);
+    }
+
+    // ================================================
+    // 라우팅: /images/* - R2 이미지 서빙
+    // ================================================
+    if (path.startsWith('/images/')) {
+      return handleImages(request, env, corsHeaders, path);
+    }
+
+    // ================================================
     // 기본 라우트: 폼 제출 처리 (POST /)
     // ================================================
     if (request.method !== 'POST') {
@@ -543,7 +557,7 @@ async function handleBoard(request, env, corsHeaders) {
         내용: record.fields['내용'] || '',
         요약: record.fields['요약'] || (record.fields['내용'] || '').substring(0, 100),
         카테고리: record.fields['카테고리'] || '공지',
-        썸네일: record.fields['썸네일']?.[0]?.url || null,
+        썸네일: record.fields['썸네일'] || null,
         작성일: record.fields['작성일'] || '',
         조회수: record.fields['조회수'] || 0,
         게시여부: record.fields['게시여부'] ?? true,
@@ -580,9 +594,9 @@ async function handleBoard(request, env, corsHeaders) {
         '조회수': data.조회수 || data.views || 0
       };
 
-      // 썸네일이 있으면 Attachment 형태로 추가
+      // 썸네일이 있으면 URL로 추가
       if (data.썸네일 || data.thumbnail) {
-        fields['썸네일'] = [{ url: data.썸네일 || data.thumbnail }];
+        fields['썸네일'] = data.썸네일 || data.thumbnail;
       }
 
       const airtableResponse = await fetch(
@@ -612,6 +626,50 @@ async function handleBoard(request, env, corsHeaders) {
         post: { id: result.id, ...result.fields }
       }), {
         status: 201,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+
+    } catch (error) {
+      return new Response(JSON.stringify({ success: false, error: error.message }), {
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+  }
+
+  // DELETE: 게시글 삭제
+  if (request.method === 'DELETE') {
+    try {
+      const BOARD_TABLE = '게시판';
+      const url = new URL(request.url);
+      const id = url.searchParams.get('id');
+
+      if (!id) {
+        return new Response(JSON.stringify({ success: false, error: 'ID is required' }), {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      const airtableResponse = await fetch(
+        `https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/${encodeURIComponent(BOARD_TABLE)}/${id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${env.AIRTABLE_TOKEN}`
+          }
+        }
+      );
+
+      if (!airtableResponse.ok) {
+        const error = await airtableResponse.json();
+        return new Response(JSON.stringify({ success: false, error }), {
+          status: airtableResponse.status,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      return new Response(JSON.stringify({ success: true, deleted: id }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
 
@@ -1214,5 +1272,90 @@ ${fields['message'] || fields['문의내용'] ? `<b>💬 문의내용</b>\n${fie
   } catch (error) {
     console.error('❌ sendMetaLeadTelegram error:', error.message);
     return { success: false, error: error.message };
+  }
+}
+
+// ================================================
+// /upload 핸들러 - R2 이미지 업로드
+// ================================================
+async function handleUpload(request, env, corsHeaders) {
+  if (request.method !== 'POST') {
+    return new Response('Method Not Allowed', { status: 405, headers: corsHeaders });
+  }
+
+  try {
+    const formData = await request.formData();
+    const file = formData.get('file');
+
+    if (!file) {
+      return new Response(JSON.stringify({ success: false, error: 'No file provided' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
+    // 파일명 생성 (타임스탬프 + 원본 파일명)
+    const timestamp = Date.now();
+    const filename = `board/${timestamp}-${file.name}`;
+
+    // R2에 업로드
+    await env.R2_BUCKET.put(filename, file.stream(), {
+      httpMetadata: {
+        contentType: file.type || 'image/png'
+      }
+    });
+
+    // 공개 URL 생성 (Worker를 통해 서빙)
+    const publicUrl = `https://euninbiz.swdoor15.workers.dev/images/${filename}`;
+
+    console.log('✅ Image uploaded to R2:', publicUrl);
+
+    return new Response(JSON.stringify({
+      success: true,
+      url: publicUrl,
+      filename
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
+
+  } catch (error) {
+    console.error('❌ Upload error:', error.message);
+    return new Response(JSON.stringify({ success: false, error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
+  }
+}
+
+// ================================================
+// /images/* 핸들러 - R2 이미지 서빙
+// ================================================
+async function handleImages(request, env, corsHeaders, path) {
+  // /images/board/xxx.png -> board/xxx.png
+  const key = path.replace('/images/', '');
+
+  try {
+    const object = await env.R2_BUCKET.get(key);
+
+    if (!object) {
+      return new Response('Not Found', {
+        status: 404,
+        headers: corsHeaders
+      });
+    }
+
+    const headers = new Headers(corsHeaders);
+    headers.set('Content-Type', object.httpMetadata?.contentType || 'image/png');
+    headers.set('Cache-Control', 'public, max-age=31536000'); // 1년 캐싱
+    headers.set('ETag', object.etag);
+
+    return new Response(object.body, { headers });
+
+  } catch (error) {
+    console.error('❌ Image serve error:', error.message);
+    return new Response('Error', {
+      status: 500,
+      headers: corsHeaders
+    });
   }
 }
